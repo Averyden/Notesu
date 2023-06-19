@@ -72,16 +72,6 @@ function createNoteElement(id, content) {
         updateSelectedNoteText()
     })
 
-
-    // This way of deleting a note is stupid. I could try to add a sidebar with more configuration options, but thats for when i get more skilled.
-    /*element.addEventListener("dblclick", () => {
-        const doDelete = confirm("Do you want to delete this note?")
-        
-        if(doDelete) {
-            deleteNote(id, element)
-        }
-    })*/
-
     return element
 }
 
