@@ -128,34 +128,44 @@ function deleteNote({ id, noteElement }) {
 
         if (noteElement) {
             const noteIndex = Array.from(notesContainer.children).indexOf(noteElement);
-
-            noteElement.style.transition = 'opacity 0.3s ease';
-            noteElement.style.opacity = '0';
-
+            const noteWidth = noteElement.offsetWidth;
+            const gapWidth = 16; // Set the value of your gap width here
+        
+            const notes = Array.from(notesContainer.children);
+            notes.forEach((note, index) => {
+              if (index > noteIndex) {
+                note.style.transition = `transform 0.3s ease`;
+                note.style.transform = `translateX(-${noteWidth + gapWidth}px)`;
+              }
+            });
+        
+            noteElement.addEventListener('transitionend', handleTransitionEnd);
+        
+            function handleTransitionEnd() {
+                console.log("hiiiii")
+                noteElement.removeEventListener('transitionend', handleTransitionEnd);
+                notesContainer.removeChild(noteElement);
+                repositionNotes(noteIndex, gapWidth);
+            }
+            
+            console.log("fhgnfhgd")
             setTimeout(() => {
-            //notesContainer.removeChild(noteElement);
-            repositionNotes();
-            }, 300);
+              noteElement.style.opacity = '0';
+            }, 0);
+          }
         }
+  
 
-        // Update the text
-        if (currentSelectedNote === id) {
-            currentSelectedNote = null;
-            updateSelectedNoteText();
-        }
-} 
-
-function repositionNotes() {
+function repositionNotes(startIndex, gapWidth) {
     const notes = Array.from(notesContainer.children);
-
-    notesContainer.style.gridTemplateColumns = `repeat(auto-fill, ${notes[0].offsetWidth}px)`;
-
-    for (let i = 0; i < notes.length; i++) {
-    const note = notes[i];
-    note.style.transition = 'transform 0.3s ease';
-    note.style.transform = `translateX(0)`;
-    }
-}
+    notes.forEach((note, index) => {
+      if (index >= startIndex) {
+        note.style.transition = '';
+        note.style.transform = '';
+      }
+    });
+  }
+  
 
 
 function updateSelectedNoteText() {
