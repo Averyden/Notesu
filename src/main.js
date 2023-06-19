@@ -106,11 +106,21 @@ function deleteNote({ id, noteElement }) {
     saveNotes(currentNotes);
   
     if (noteElement) {
-      console.log(`deleting note ${noteElement}`);
-      noteElement.classList.add("note--delete")
-      noteElement.addEventListener("transitioned", () => {
-        notesContainer.removeChild(noteElement);
-      })
+        console.log(`deleting note ${noteElement}`);
+        const noteIndex = Array.from(notesContainer.children).indexOf(noteElement)
+        const noteWidth = noteElement.offsetWidth;
+        const gapWidth = 24;
+        const transitionDuration = 0.3; 
+
+        const newPosition = -(noteWidth+ gapWidth) * noteIndex;
+        noteElement.style.transition = `transform ${transitionDuration}s ease`;
+        noteElement.style.transform = `translateX(${newPosition}px)`;
+
+        setTimeout(() => {
+            //noteElement.classList.add("note--delete")
+            notesContainer.removeChild(noteElement);
+            repositionNotes(noteIndex)
+        }, transitionDuration * 1000);
     }
   
     if (currentSelectedNote === id) {
@@ -118,6 +128,19 @@ function deleteNote({ id, noteElement }) {
       updateSelectedNoteText();
     }
 } 
+
+function repositionNotes(startIndex) {
+    const noteElements = Array.from(notesContainer.children);
+    const gapWidth = parseFloat(getComputedStyle(notesContainer).gap);
+    const marginLeft = parseFloat(getComputedStyle(notesContainer).marginLeft)
+
+    for (let i = startIndex; i < noteElements.length; i++) {
+        const noteElement = noteElements[i];
+        const newPosition = -((noteElement.offsetWidth + gapWidth) * i) - marginLeft
+
+        noteElement.style.transform = `translateX(${newPosition}px)`
+    }
+}
 
 function updateSelectedNoteText() {
     const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
