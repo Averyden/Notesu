@@ -132,26 +132,30 @@ function deleteNote({ id, noteElement }) {
             const gapWidth = 16; // Set the value of your gap width here
         
             const notes = Array.from(notesContainer.children);
-            notes.forEach((note, index) => {
-              if (index > noteIndex) {
-                note.style.transition = `transform 0.3s ease`;
-                note.style.transform = `translateX(-${noteWidth + gapWidth}px)`;
-              }
-            });
+
+           
+            noteElement.style.opacity = '0';
+            
+            
+            setTimeout(() => {
+              notes.forEach((note, index) => {
+                if (index > noteIndex) {
+                  note.style.transition = `transform 0.3s ease`;
+                  note.style.transform = `translateX(-${noteWidth + gapWidth}px)`;
+                }
+              });
+            }, 300);
         
             noteElement.addEventListener('transitionend', handleTransitionEnd);
         
             function handleTransitionEnd() {
-                console.log("hiiiii")
-                noteElement.removeEventListener('transitionend', handleTransitionEnd);
-                notesContainer.removeChild(noteElement);
-                repositionNotes(noteIndex, gapWidth);
+              console.log("hiiiii")
+              noteElement.removeEventListener('transitionend', handleTransitionEnd);
+              notesContainer.removeChild(noteElement);
+              repositionNotes(noteIndex, gapWidth);
             }
             
             console.log("fhgnfhgd")
-            setTimeout(() => {
-              noteElement.style.opacity = '0';
-            }, 0);
           }
         }
   
