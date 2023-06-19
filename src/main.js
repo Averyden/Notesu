@@ -101,36 +101,62 @@ function updateNote(id, newContent) {
     console.log(`Note ${selectedNote.id} has been updated`)
 }
 
+//this below is just for deletion of notes with no animation
+// function deleteNote({ id, noteElement }) {
+//     const currentNotes = getNotes().filter((note) => note.id !== id);
+//     saveNotes(currentNotes);
+  
+//     console.log("gredty");
+//     if (noteElement) {
+//       console.log(`deleting note ${noteElement}`);
+//       notesContainer.removeChild(noteElement);
+//       console.log("deleted");
+//     }
+  
+//     console.log("fcxvgbfbvdgfgbfg");
+//     if (currentSelectedNote === id) {
+//       currentSelectedNote = null;
+//       updateSelectedNoteText();
+//     }
+//   }
+
+//all this below is the function for the start of the desired animation, but because ive now spent 7 hours on this shit i cant be botherd to try and solve this fucking davinci code.
 function deleteNote({ id, noteElement }) {
     const currentNotes = getNotes().filter((note) => note.id !== id);
-    saveNotes(currentNotes);
-  
-    console.log("gredty");
-    if (noteElement) {
-      console.log(`deleting note ${noteElement}`);
-      notesContainer.removeChild(noteElement);
-   
-    }
-  
-   
-    if (currentSelectedNote === id) {
-      currentSelectedNote = null;
-      updateSelectedNoteText();
-    }
-  }
+        saveNotes(currentNotes);
 
-// function repositionNotes() {
-//     const notes = Array.from(notesContainer.children);
-  
-//     notesContainer.style.gridTemplateColumns = `repeat(auto-fill, ${notes[0].offsetWidth}px)`;
-  
-//     for (let i = 0; i < notes.length; i++) {
-//       const note = notes[i];
-//       note.style.transition = 'transform 0.3s ease';
-//       note.style.transform = `translateX(0)`;
-//     }
-// }
-  
+
+        if (noteElement) {
+            const noteIndex = Array.from(notesContainer.children).indexOf(noteElement);
+
+            noteElement.style.transition = 'opacity 0.3s ease';
+            noteElement.style.opacity = '0';
+
+            setTimeout(() => {
+            notesContainer.removeChild(noteElement);
+            repositionNotes();
+            }, 300);
+        }
+
+        // Update the text
+        if (currentSelectedNote === id) {
+            currentSelectedNote = null;
+            updateSelectedNoteText();
+        }
+} 
+
+function repositionNotes() {
+    const notes = Array.from(notesContainer.children);
+
+    notesContainer.style.gridTemplateColumns = `repeat(auto-fill, ${notes[0].offsetWidth}px)`;
+
+    for (let i = 0; i < notes.length; i++) {
+    const note = notes[i];
+    note.style.transition = 'transform 0.3s ease';
+    note.style.transform = `translateX(0)`;
+    }
+}
+
 
 function updateSelectedNoteText() {
     const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
