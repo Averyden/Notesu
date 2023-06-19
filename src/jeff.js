@@ -100,36 +100,59 @@ function updateNote(id, newContent) {
     //dunno why the fuck js wants you to use backticks if you wanna format shit but.. if it works.. it works. 🤷‍♀️
     console.log(`Note ${selectedNote.id} has been updated`)
 }
-
-function deleteNote({ id, noteElement }) {
+//i fucking hate this stupid shit
+function deleteNote({
+    id,
+    noteElement
+  }) {
     const currentNotes = getNotes().filter((note) => note.id !== id);
     saveNotes(currentNotes);
   
-    console.log("gredty");
     if (noteElement) {
-      console.log(`deleting note ${noteElement}`);
-      notesContainer.removeChild(noteElement);
-   
+      const noteIndex = Array.from(notesContainer.children).indexOf(noteElement);
+  
+      noteElement.style.transition = 'opacity 0.3s ease';
+      noteElement.style.opacity = '0';
+  
+      setTimeout(() => {
+        notesContainer.removeChild(noteElement);
+        repositionNotes(noteIndex);
+      }, 300);
     }
   
-   
+    // Update the text
     if (currentSelectedNote === id) {
       currentSelectedNote = null;
       updateSelectedNoteText();
     }
   }
 
-// function repositionNotes() {
-//     const notes = Array.from(notesContainer.children);
+  function repositionNotes(startIndex) {
+    const noteElements = Array.from(notesContainer.children);
+    const numNotes = noteElements.length;
+    const gridColumns = Math.floor(notesContainer.offsetWidth / (noteElements[0].offsetWidth + 24));
+    const numRows = Math.ceil(numNotes / gridColumns);
   
-//     notesContainer.style.gridTemplateColumns = `repeat(auto-fill, ${notes[0].offsetWidth}px)`;
+    for (let i = startIndex + 1; i < numNotes; i++) {
+      const noteElement = noteElements[i];
+      const currentRow = Math.floor(i / gridColumns);
+      const currentColumn = i % gridColumns;
+      const targetRow = Math.floor((i - 1) / gridColumns);
+      const targetColumn = (i - 1) % gridColumns;
+      const offsetX = (targetColumn - currentColumn) * (noteElement.offsetWidth + 24);
+      const offsetY = (targetRow - currentRow) * (noteElement.offsetHeight + 24);
+      noteElement.style.transition = 'transform 0.3s ease';
+      noteElement.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    }
   
-//     for (let i = 0; i < notes.length; i++) {
-//       const note = notes[i];
-//       note.style.transition = 'transform 0.3s ease';
-//       note.style.transform = `translateX(0)`;
-//     }
-// }
+    setTimeout(() => {
+      for (let i = startIndex + 1; i < numNotes; i++) {
+        const noteElement = noteElements[i];
+        noteElement.style.transition = '';
+        noteElement.style.transform = '';
+      }
+    }, 300);
+  }
   
 
 function updateSelectedNoteText() {
