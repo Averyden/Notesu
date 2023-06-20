@@ -7,6 +7,8 @@ const menuButton = document.querySelector(".hamburger")
 const sidebar = document.querySelector(".sidebar")
 const deleteButton = document.querySelector(".deletenotebutton")
 
+const popupContainer = document.getElementById("popupContainer")
+
 let currentSelectedNote = null //Make function that gets the ID of the note that the user has clicked and then parse it through the <li><text>You have not selected a note to configure.</text></li> <!--Current selected note:--> element in the HTML document
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
@@ -20,9 +22,10 @@ menuButton.addEventListener("click", toggleSidebar)
 deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
 
 function promptDelete() {
-    const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
   
-    if (selectedNote) {
+    const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
+    introducePopup("Confirmation", `Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`)
+  /*  if (selectedNote) {
       const doDelete = confirm(`Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`);
   
       if (doDelete) {
@@ -33,10 +36,30 @@ function promptDelete() {
         currentSelectedNote = null;
         updateSelectedNoteText();
       }
-    }
+    }*/
 }
   
+function introducePopup(title, message) {
+  const popupContainer = document.getElementById('popupContainer');
+
+  // Create the popup HTML dynamically
+  const popupHTML = `
+    <div class="popup">
+        <span class="popup-title" id="popupTitle">Confirmation</h1> <!--or whatever the fuck.-->
+        <span class="popup-message" id="popupText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae dignissim velit, eget interdum tortor. Etiam pharetra molestie neque in porta. Aliquam vehicula leo sit amet neque mollis, ac venenatis mi fringilla. Phasellus urna urna, scelerisque ut neque ut, sollicitudin viverra nulla. Curabitur gravida leo libero, a congue purus consequat eu. Sed sit amet varius nisi, quis vehicula nisi. Praesent vulputate viverra ligula at volutpat. Duis varius et enim a finibus. </span>
+        <div class="popup-buttons">
+            <button class="btn-cancel">Cancel</button>
+            <button class="btn-confirm">Confirm</button>
+        </div>
+    </div>
+  `;
+
+  // Display the popup
+  popupContainer.innerHTML = popupHTML;
   
+  // Add the 'show' class to trigger the animation
+  popupContainer.classList.add('show');
+}
 
 function toggleSidebar() {
     menuButton.classList.toggle("is-active")
