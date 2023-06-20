@@ -1,7 +1,7 @@
 const notesContainer = document.getElementById("app")
 const addButton = notesContainer.querySelector(".add-note")
 const saveUpdateButton = document.querySelector(".save-update")
-const selectedNoteText = document.querySelector(".sidebar li:first-child text")
+const selectedNoteText = document.getElementById("sidebar-text")
 
 const menuButton = document.querySelector(".hamburger")
 const sidebar = document.querySelector(".sidebar")
@@ -61,7 +61,7 @@ function createNoteElement(id, content) {
 
     div.appendChild(element)
     div.appendChild(deadline)
-    deadline.innerText = "me retard"
+    deadline.innerText = "No deadline has been set."
 
     element.id = id;
 
@@ -71,15 +71,21 @@ function createNoteElement(id, content) {
     element.value = content;
     element.placeholder = "Empty note"
 
+    element.addEventListener("focus", () => {
+      currentSelectedNote = id
+      div.classList.add("note-focused")
+      updateSelectedNoteText()
+    });
+
+    element.addEventListener("blur", () => {
+      currentSelectedNote = null
+      div.classList.remove("note-focused")
+      updateSelectedNoteText()
+    });
+
     element.addEventListener("change", () => {
         updateNote(id, element.value)
     });
-
-    element.addEventListener("click", () => {
-        currentSelectedNote = id
-        updateSelectedNoteText()
-    })
-
     return div
 }
 
@@ -164,8 +170,8 @@ function deleteNote({ id, noteElement }) {
             }
             
             console.log("fhgnfhgd")
-          }
         }
+}
   
 
 function repositionNotes(startIndex, gapWidth) {
