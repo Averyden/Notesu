@@ -65,7 +65,9 @@ function createNoteElement(id, content) {
 
     element.id = id;
 
-    element.classList.add("note")
+    div.classList.add("note")
+    element.classList.add("note-text")
+    deadline.classList.add("note-deadline")
     element.value = content;
     element.placeholder = "Empty note"
 
@@ -78,7 +80,7 @@ function createNoteElement(id, content) {
         updateSelectedNoteText()
     })
 
-    return element
+    return div
 }
 
 function addNote() {
