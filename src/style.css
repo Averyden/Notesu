@@ -36,6 +36,16 @@ body {
     transition: transform 0.3s, opacity 0.3s;
 }
 
+.note span {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    color: rgba(46, 46, 46, 0.15);
+}
+
 .note--delete {
     transform: translateY(-100%);
     opacity: 0;

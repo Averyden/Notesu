@@ -55,7 +55,13 @@ function saveNotes(notes) {
 }
 
 function createNoteElement(id, content) {
+    const div = document.createElement("div");
     const element = document.createElement("textarea");
+    const deadline = document.createElement("span");
+
+    div.appendChild(element)
+    div.appendChild(deadline)
+    deadline.innerText = "me retard"
 
     element.id = id;
 
