@@ -63,13 +63,15 @@ function createNoteElement(id, content) {
     div.appendChild(deadline)
     deadline.innerText = "No deadline has been set."
 
-    element.id = id;
+    div.id = id;
 
     div.classList.add("note")
     element.classList.add("note-text")
     deadline.classList.add("note-deadline")
     element.value = content;
     element.placeholder = "Empty note"
+
+    let blurTimeout;
 
     element.addEventListener("focus", () => {
       currentSelectedNote = id
@@ -78,14 +80,21 @@ function createNoteElement(id, content) {
     });
 
     element.addEventListener("blur", () => {
-      currentSelectedNote = null
-      div.classList.remove("note-focused")
-      updateSelectedNoteText()
+      blurTimeout = setTimeout(() => {
+        currentSelectedNote = null
+        div.classList.remove("note-focused")
+        updateSelectedNoteText()
+      }, 200);
     });
 
     element.addEventListener("change", () => {
         updateNote(id, element.value)
     });
+
+    div.addEventListener("mousedown", () => {
+      clearTimeout(blurTimeout);
+    })
+
     return div
 }
 
