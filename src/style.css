@@ -28,16 +28,18 @@ body {
     padding: 16px;
     border: none;
     border-radius: 10px;
-    background-color: #FFF;
-    box-shadow: 0 0 7px rgba(0,0,0, 0.15);
+    background-color: #fff;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
     resize: none;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-  /* margin-left: 24px;
-    margin-right: 24px;*/
-    transition: transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s, outline 0.3s;
+  }
+  
+.note.note-focused {
+    outline: 5px solid #e048c7; /* Customize the outline color and size */
 }
-
+  
 .note .note-text {
     position: absolute;
     top: 0;
@@ -52,6 +54,10 @@ body {
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
     color: #000;
+}
+
+.note .note-text:focus {
+    outline: none;
 }
 
 .note .note-deadline {
@@ -193,7 +199,7 @@ header {
     padding: 16px;
 }
 
-.sidebar li text {
+#sidebar-text {
     font-family: 'Roboto', sans-serif;
     color: #2e2e2e;
 }
