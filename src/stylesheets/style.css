@@ -28,6 +28,9 @@ body {
     width: 200px;
     box-sizing: border-box;
     padding: 16px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
     border: none;
     border-radius: 10px;
     background-color: #fff;
@@ -37,18 +40,18 @@ body {
     font-size: 16px;
     transition: transform 0.3s, opacity 0.3s, outline 0.3s;
 
-  }
-  
+}
+
 .note.note-focused {
     outline: 5px solid #e048c7; /* Customize the outline color and size */
 }
-  
+
 .note .note-text {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 32px);
+    height: calc(100% - 40px);
     resize: none;
     background: transparent;
     border: none;
@@ -57,6 +60,14 @@ body {
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
     color: #000;
+    overflow-wrap: anywhere; /* Generate new line within words */
+    overflow-wrap: break-word; /* Fallback for browsers that don't support 'anywhere' */
+    hyphens: auto;
+}
+
+.note .note-text::after {
+    content: '\A'; /* Insert a line break */
+    white-space: pre; /* Preserve whitespace */
 }
 
 .note .note-text:focus {
@@ -74,13 +85,8 @@ body {
     color: rgba(46, 46, 46, 0.15);
 }
 
-.note--delete {
-    transform: translateY(-100%);
-    opacity: 0;
-    animation: note-delete 0.3s ease forwards;
-} 
 
-@keyframes note-move {
+/*@keyframes note-move {
     from {
       transform: translate(var(--translate-x), var(--translate-y));
     }
@@ -94,7 +100,7 @@ body {
       transform: translateY(-100%);
       opacity: 0;
     }
-  }
+  } */
 
 .add-note  {
     height: 200px;
