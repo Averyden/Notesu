@@ -10,6 +10,9 @@ const deleteButton = document.querySelector(".deletenotebutton")
 const popupContainer = document.getElementById("popupContainer")
 //const popupTitle = document.getElementById("popupTitle");
 
+const popupBtnCancel = document.querySelector(".btn-cancel")
+const popupBtnConfirm = document.querySelector(".btn-confirm")
+
 let currentSelectedNote = null //Make function that gets the ID of the note that the user has clicked and then parse it through the <li><text>You have not selected a note to configure.</text></li> <!--Current selected note:--> element in the HTML document
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
@@ -22,11 +25,13 @@ getNotes().forEach(note => {
 addButton.addEventListener("click", () => addNote())
 menuButton.addEventListener("click", toggleSidebar)
 deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
+popupBtnCancel.addEventListener("click", () => cancelPrompt())
+
 
 function promptDelete() {
   
     const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
-    introducePopup("confirmation-prompt", `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`)
+    introducePopup("delete-note-promptrfthfg", `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`)
   /*  if (selectedNote) {
       const doDelete = confirm(`Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`);
   
@@ -45,21 +50,76 @@ function introducePopup(type, message) {
   const popupContent = document.getElementById("popupText");
   const popupTitle = document.getElementById("popupTitle")
 
-  const titleVariants = {
-    "confirmation-prompt": "Confirmation",
-    "error": "Alert"
+  const promptVariants = {
+    "delete-note-prompt": {
+      title: "Delete note",
+      confirmText: "Delete"
+    },
+    "confirmation-prompt": {
+      title: "Confirmation",
+      confirmText: "Confirm"
+    },
+    
+    "error": {
+      title: "Error in code",
+      confirmText: "OK",
+    },
+  
     //More variants might come later, idfk
   }
 
-  if (titleVariants.hasOwnProperty(type)) {
-    popupTitle.innerText = titleVariants[type]
+  //call error if incorrect type referenced.
+  if (!promptVariants.hasOwnProperty(type)) {
+    type = "error"
+    const error = new Error()
+    const stackLines = error.stack.split("\n")
+    const callingLine = stackLines[2].trim()
+    const callingCode = callingLine.substring(callingLine.indexOf("(") + 1, callingLine.indexOf(")"))
+    console.log(callingCode)
+    message = `Incorrect type referenced.\nCalled from: ${callingCode}`
   }
 
-  popupContent.innerText = message
-  
+  //call error if message is null (not called)
+  if (message !== null) {
+    popupContent.innerText = message
+  } else {
+    const error = new Error();
+    const stackLines = error.stack.split("\n")
+    const callingLine = stackLines[2].trim()
+    const callingCode = callingLine.substring(callingLine.indexOf("(") + 1, callingLine.indexOf(")"))
+    message = `Missing parameter: "Message" \nCalled from: ${callingCode}`
+  }
+
+  const {title, confirmText} = promptVariants[type]
+  popupTitle.innerText = title
+  popupBtnConfirm.innerHTML = confirmText
+
+  if (type !== "error") {
+    popupBtnCancel.style.display = "inline-block"
+  } else {
+    popupBtnCancel.style.display = "none"
+  }
+
   // Add the 'show' class to trigger the animation
+  popupContainer.classList.remove("hide")
   popupContainer.classList.add('show');
 }
+
+//beg tjaz for help (if the chance comes, for now ill just keep it as is)
+
+function cancelPrompt() {
+  if (popupContainer.classList.contains("show")) {
+    popupContainer.classList.remove("show");
+    popupContainer.classList.add("hide");
+    setTimeout(() => {
+      //popupContainer.style.display = "none";
+      popupContainer.classList.remove("hide");
+    }, 300); // Hide the popup after the animation duration (0.3s)
+  } else {
+    console.log("what");
+  }
+}
+
 
 function toggleSidebar() {
     menuButton.classList.toggle("is-active")
