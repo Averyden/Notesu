@@ -56,22 +56,6 @@ function introducePopup(type, message) {
   }
 
   popupContent.innerText = message
-
-
-  // Create the popup HTML dynamically
-  /*const popupHTML = `
-    <div class="popup">
-        <span class="popup-title" id="popupTitle">Confirmation</h1> <!--or whatever the fuck.-->
-        <span class="popup-message" id="popupText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae dignissim velit, eget interdum tortor. Etiam pharetra molestie neque in porta. Aliquam vehicula leo sit amet neque mollis, ac venenatis mi fringilla. Phasellus urna urna, scelerisque ut neque ut, sollicitudin viverra nulla. Curabitur gravida leo libero, a congue purus consequat eu. Sed sit amet varius nisi, quis vehicula nisi. Praesent vulputate viverra ligula at volutpat. Duis varius et enim a finibus. </span>
-        <div class="popup-buttons">
-            <button class="btn-cancel">Cancel</button>
-            <button class="btn-confirm">Confirm</button>
-        </div>
-    </div>
-  `;
-
-  // Display the popup
-  popupContainer.innerHTML = popupHTML;*/
   
   // Add the 'show' class to trigger the animation
   popupContainer.classList.add('show');
