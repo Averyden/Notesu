@@ -8,6 +8,7 @@ const sidebar = document.querySelector(".sidebar")
 const deleteButton = document.querySelector(".deletenotebutton")
 
 const popupContainer = document.getElementById("popupContainer")
+//const popupTitle = document.getElementById("popupTitle");
 
 let currentSelectedNote = null //Make function that gets the ID of the note that the user has clicked and then parse it through the <li><text>You have not selected a note to configure.</text></li> <!--Current selected note:--> element in the HTML document
 
@@ -17,6 +18,7 @@ getNotes().forEach(note => {
     notesContainer.insertBefore(noteElement, addButton)
 });
 
+
 addButton.addEventListener("click", () => addNote())
 menuButton.addEventListener("click", toggleSidebar)
 deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
@@ -24,7 +26,7 @@ deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
 function promptDelete() {
   
     const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
-    introducePopup("Confirmation", `Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`)
+    introducePopup("confirmation-prompt", `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`)
   /*  if (selectedNote) {
       const doDelete = confirm(`Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`);
   
@@ -39,11 +41,25 @@ function promptDelete() {
     }*/
 }
   
-function introducePopup(title, message) {
-  const popupContainer = document.getElementById('popupContainer');
+function introducePopup(type, message) {
+  const popupContent = document.getElementById("popupText");
+  const popupTitle = document.getElementById("popupTitle")
+
+  const titleVariants = {
+    "confirmation-prompt": "Confirmation",
+    "error": "Alert"
+    //More variants might come later, idfk
+  }
+
+  if (titleVariants.hasOwnProperty(type)) {
+    popupTitle.innerText = titleVariants[type]
+  }
+
+  popupContent.innerText = message
+
 
   // Create the popup HTML dynamically
-  const popupHTML = `
+  /*const popupHTML = `
     <div class="popup">
         <span class="popup-title" id="popupTitle">Confirmation</h1> <!--or whatever the fuck.-->
         <span class="popup-message" id="popupText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae dignissim velit, eget interdum tortor. Etiam pharetra molestie neque in porta. Aliquam vehicula leo sit amet neque mollis, ac venenatis mi fringilla. Phasellus urna urna, scelerisque ut neque ut, sollicitudin viverra nulla. Curabitur gravida leo libero, a congue purus consequat eu. Sed sit amet varius nisi, quis vehicula nisi. Praesent vulputate viverra ligula at volutpat. Duis varius et enim a finibus. </span>
@@ -55,7 +71,7 @@ function introducePopup(title, message) {
   `;
 
   // Display the popup
-  popupContainer.innerHTML = popupHTML;
+  popupContainer.innerHTML = popupHTML;*/
   
   // Add the 'show' class to trigger the animation
   popupContainer.classList.add('show');
