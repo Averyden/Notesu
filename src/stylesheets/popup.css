@@ -32,7 +32,7 @@
     flex-direction: column;
     align-items: center;
     transform: translateY(100%); /* Initially position below the viewport */
-    animation: slide-up 0.3s ease forwards; /* Add animation property */
+    animation: slide-down 0.3s ease forwards; /* Add animation property */
 }
   
 .popup .popup-title {
@@ -40,6 +40,7 @@
     font-weight: bold;
     font-size: 25px;
     text-align: center;
+    padding: 10px;
 }
   
 .popup .popup-message {
@@ -52,21 +53,31 @@
   
 .popup-buttons {
     display: flex;
+    padding: 5px;
 }
 
 .popup-buttons .btn-cancel,
-.popup-buttons .btn-cancel {
+.popup-buttons .btn-confirm {
     margin: 8px;
+    width: 75px;
+    height: 30px;
+    border: none;
+    border-radius: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: auto;
+}
+
+.popup-buttons .btn-confirm {
+    background-color: #f13ce8;
+    color: #FFF;
 }
   
-@keyframes slide-up {
+ @keyframes slide-down {
     0% {
-    transform: translateY(100%); /* Start position below the viewport */
+    transform: translateY(-100%); /* Start position above the viewport */
     }
     100% {
     transform: translateY(0); /* End position at the center of the viewport */
     }
 }
-  
-  
 
