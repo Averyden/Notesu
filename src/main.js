@@ -13,7 +13,8 @@ const popupContainer = document.getElementById("popupContainer")
 const popupBtnCancel = document.querySelector(".btn-cancel")
 const popupBtnConfirm = document.querySelector(".btn-confirm")
 
-let currentSelectedNote = null //Make function that gets the ID of the note that the user has clicked and then parse it through the <li><text>You have not selected a note to configure.</text></li> <!--Current selected note:--> element in the HTML document
+let currentSelectedNote = null 
+let selectedNoteForConfig = null  //Make second variable for selected note as a getaway from blur function killing itself. (dunno about the outline though)
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
 getNotes().forEach(note => {
@@ -31,7 +32,10 @@ popupBtnCancel.addEventListener("click", () => cancelPrompt())
 function promptDelete() {
   
     const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
-    introducePopup("delete-note-promptrfthfg", `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`)
+    // we turn the message parameter into a variable, so that calling the function doesn't look as cluttered.
+    const promptMessage = `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`
+    introducePopup("delete-note-prompt", promptMessage) 
+
   /*  if (selectedNote) {
       const doDelete = confirm(`Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`);
   
@@ -41,7 +45,7 @@ function promptDelete() {
           noteElement: document.getElementById(selectedNote.id),
         });
         currentSelectedNote = null;
-        updateSelectedNoteText();
+        updateSelectedNoteText(); 
       }
     }*/
 }
@@ -53,11 +57,25 @@ function introducePopup(type, message) {
   const promptVariants = {
     "delete-note-prompt": {
       title: "Delete note",
-      confirmText: "Delete"
+      confirmText: "Delete",
+      onConfirm: function() {
+        const selectedNote = getNotes().find((note) => note.id === selectedNoteForConfig);
+        deleteNote({
+          id: selectedNote.id,
+          noteElement: document.getElementById(selectedNote.id),
+        });
+        selectedNoteForConfig = null;
+        updateSelectedNoteText(); 
+        cancelPrompt()
+      }
     },
     "confirmation-prompt": {
       title: "Confirmation",
-      confirmText: "Confirm"
+      confirmText: "Confirm",
+      onConfirm: function() {
+        cancelPrompt() // I actually have no idea what confirming should do yet.
+        console.log(`User has confirmed (x) action (format string when needed:)`)
+      }
     },
     
     "error": {
@@ -73,21 +91,21 @@ function introducePopup(type, message) {
     type = "error"
     const error = new Error()
     const stackLines = error.stack.split("\n")
-    const callingLine = stackLines[2].trim()
-    const callingCode = callingLine.substring(callingLine.indexOf("(") + 1, callingLine.indexOf(")"))
+    const callingLine = stackLines[3].trim()
+    const callingCode = callingLine.substring(callingLine.indexOf("at ") + 2)
     console.log(callingCode)
-    message = `Incorrect type referenced.\nCalled from: ${callingCode}`
+    message = `Incorrect type referenced.\nCalled from: ${callingCode} \nPresumably there may have been a spelling mistake, or calling the type may have been forgotten?`
   }
 
-  //call error if message is null (not called)
+  //call error if message === null (not called)
   if (message !== null) {
     popupContent.innerText = message
   } else {
     const error = new Error();
     const stackLines = error.stack.split("\n")
-    const callingLine = stackLines[2].trim()
-    const callingCode = callingLine.substring(callingLine.indexOf("(") + 1, callingLine.indexOf(")"))
-    message = `Missing parameter: "Message" \nCalled from: ${callingCode}`
+    const callingLine = stackLines[3].trim()
+    const callingCode = callingLine.substring(callingLine.indexOf("at ") + 2)
+    message = `Missing parameter: "Message" \nCalled from: ${callingCode} \nPresumably you may have forgotten to add a message to the parameters when calling the function?`
   }
 
   const {title, confirmText} = promptVariants[type]
@@ -99,6 +117,12 @@ function introducePopup(type, message) {
   } else {
     popupBtnCancel.style.display = "none"
   }
+
+  popupBtnConfirm.addEventListener("click", function() {
+    promptVariants[type].onConfirm()  //Calls the appropriate onConfirm function based on the type parameter.
+
+    cancelPrompt() //Just incase it doesnt through calling the onConfirm function
+  })
 
   // Add the 'show' class to trigger the animation
   popupContainer.classList.remove("hide")
@@ -158,6 +182,7 @@ function createNoteElement(id, content) {
 
     element.addEventListener("focus", () => {
       currentSelectedNote = id
+      selectedNoteForConfig = id
       div.classList.add("note-focused")
       updateSelectedNoteText()
     });
@@ -279,7 +304,7 @@ function repositionNotes(startIndex, gapWidth) {
 
 
 function updateSelectedNoteText() {
-    const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
+    const selectedNote = getNotes().find((note) => note.id === selectedNoteForConfig)
 
     if (selectedNote) {
         selectedNoteText.textContent = `Current selected note(${selectedNote.id}): ${selectedNote.content}`
