@@ -17,6 +17,22 @@
     display: flex; /* Move the popup to the center of the viewport */
 }
 
+.popup-container.hide {
+    animation: slide-up 0.3s ease forwards;
+    /*display: none;*/
+}
+
+@keyframes slide-up {
+    0% {
+    transform: translateY(0); /* Start position above the viewport */
+    }
+    100% {
+    transform: translateY(-100%); /* End position at the center of the viewport */
+    }
+}
+
+
+
 /*.popup-container.show .popup {
     transform: translateY(0%);
 }*/
@@ -65,11 +81,18 @@
     border-radius: 15px;
     font-family: 'Roboto', sans-serif;
     font-size: auto;
+    transition: background 0.3s;
+    cursor: pointer;
 }
 
 .popup-buttons .btn-confirm {
     background-color: #f13ce8;
     color: #FFF;
+    transition: background 0.3s;
+}
+
+.popup-buttons .btn-confirm:hover {
+    background: #d823cf;
 }
   
  @keyframes slide-down {
@@ -80,4 +103,3 @@
     transform: translateY(0); /* End position at the center of the viewport */
     }
 }
-
