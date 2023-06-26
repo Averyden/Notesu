@@ -29,7 +29,7 @@ addButton.addEventListener("click", () => addNote())
 menuButton.addEventListener("click", toggleSidebar)
 deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
 popupBtnCancel.addEventListener("click", () => cancelPrompt())
-
+popupContainer.addEventListener("click", () => cancelPrompt());
 
 function promptDelete() {
   
