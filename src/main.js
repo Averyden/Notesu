@@ -18,6 +18,19 @@ const popupBtnConfirm = document.querySelector(".btn-confirm")
 let currentSelectedNote = null 
 let selectedNoteForConfig = null  //Make second variable for selected note as a getaway from blur function killing itself. (dunno about the outline though)
 
+/**
+ * Hide the pop-up close animation on page load --
+ * TODO: Please fix this shitty hack in the future :(
+ */
+popupContainer.style.visibility = "hidden";
+
+setTimeout(() => {
+  popupContainer.style.visibility = "visible";
+}, 300);
+
+//
+
+
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
 getNotes().forEach(note => {
     const noteElement = createNoteElement(note.id, note.content)
@@ -29,7 +42,7 @@ addButton.addEventListener("click", () => addNote())
 menuButton.addEventListener("click", toggleSidebar)
 deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
 popupBtnCancel.addEventListener("click", () => cancelPrompt())
-
+popupContainer.addEventListener("click", () => cancelPrompt());
 
 function promptDelete() {
   
@@ -129,26 +142,13 @@ function introducePopup(type, message) {
     cancelPrompt() //Just incase it doesnt through calling the onConfirm function
   })
 
-  // Add the 'show' class to trigger the animation
-  popupContainer.classList.remove("hide")
-  popupContainer.classList.add('show');
+  // Make the pop-up visible
+  popupContainer.classList.add("visible");
 }
-
-//beg tjaz for help (if the chance comes, for now ill just keep it as is)
 
 function cancelPrompt() {
-  if (popupContainer.classList.contains("show")) {
-    popupContainer.classList.remove("show");
-    popupContainer.classList.add("hide");
-    setTimeout(() => {
-      //popupContainer.style.display = "none";
-      popupContainer.classList.remove("hide");
-    }, 300); // Hide the popup after the animation duration (0.3s)
-  } else {
-    console.log("what");
-  }
+  popupContainer.classList.remove("visible");
 }
-
 
 function toggleSidebar() {
     menuButton.classList.toggle("is-active")
