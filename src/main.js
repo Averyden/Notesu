@@ -280,7 +280,7 @@ function deleteNote({ id, noteElement }) {
                   note.style.transform = `translateX(-${noteWidth + gapWidth}px)`;
                 }
               });
-            }, 300); // Timeout is set to 300 to skip the faulty animation.. I guess we'll just roll with this for now 🤷‍♀️🤷‍♀️🤷‍♀️
+            }, 300); // Timeout is set to 300 to skip the faulty animation.. I guess we'll just roll with this for now ¯\_(ツ)_/¯
         
             noteElement.addEventListener('transitionend', handleTransitionEnd);
         
