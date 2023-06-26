@@ -129,26 +129,13 @@ function introducePopup(type, message) {
     cancelPrompt() //Just incase it doesnt through calling the onConfirm function
   })
 
-  // Add the 'show' class to trigger the animation
-  popupContainer.classList.remove("hide")
-  popupContainer.classList.add('show');
+  // Make the pop-up visible
+  popupContainer.classList.add("visible");
 }
-
-//beg tjaz for help (if the chance comes, for now ill just keep it as is)
 
 function cancelPrompt() {
-  if (popupContainer.classList.contains("show")) {
-    popupContainer.classList.remove("show");
-    popupContainer.classList.add("hide");
-    setTimeout(() => {
-      //popupContainer.style.display = "none";
-      popupContainer.classList.remove("hide");
-    }, 300); // Hide the popup after the animation duration (0.3s)
-  } else {
-    console.log("what");
-  }
+  popupContainer.classList.remove("visible");
 }
-
 
 function toggleSidebar() {
     menuButton.classList.toggle("is-active")

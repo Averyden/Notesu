@@ -1,41 +1,76 @@
 /* this is only here to test if im doing scss wrong */
 .popup-container {
-    display: none;
-    position: fixed;
-    top: 0; 
-    left: 0;
+
+    position: absolute;
     width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 7;
+    height: 100%;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    /*transition: top 0.3s ease; */
+
+    background-color: transparent;
+
+    transition: background-color .45s ease-in-out;
+    z-index: 7;
 }
 
-.popup-container.show {
-    display: flex; /* Move the popup to the center of the viewport */
+.popup-container:not(.visible) {
+    pointer-events: none;
 }
 
-.popup-container.hide {
-    animation: slide-up 0.3s ease forwards;
-    /*display: none;*/
+.popup-container.visible {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.popup-container .popup {
+    pointer-events: all;
+    animation: slide-up .3s ease forwards;
+}
+
+.popup-container.visible .popup {
+    animation: slide-down .3s ease forwards;
+}
+
+@keyframes shadow-appear {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 @keyframes slide-up {
     0% {
-    transform: translateY(0); /* Start position above the viewport */
+        transform: translateY(0);
+    }
+    95% {
+        opacity: 0;
     }
     100% {
-    transform: translateY(-100%); /* End position at the center of the viewport */
+        transform: translateY(-100%);
+        visibility: hidden;
+        opacity: 0;
     }
 }
 
-
-
-/*.popup-container.show .popup {
-    transform: translateY(0%);
-}*/
+@keyframes slide-down {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: visible;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
 .popup {
     margin: auto;
@@ -47,8 +82,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: translateY(100%); /* Initially position below the viewport */
-    animation: slide-down 0.3s ease forwards; /* Add animation property */
+    animation: slide-down 0.3s ease forwards;
 }
   
 .popup .popup-title {
@@ -93,13 +127,4 @@
 
 .popup-buttons .btn-confirm:hover {
     background: #d823cf;
-}
-  
- @keyframes slide-down {
-    0% {
-    transform: translateY(-100%); /* Start position above the viewport */
-    }
-    100% {
-    transform: translateY(0); /* End position at the center of the viewport */
-    }
 }
