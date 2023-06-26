@@ -18,6 +18,19 @@ const popupBtnConfirm = document.querySelector(".btn-confirm")
 let currentSelectedNote = null 
 let selectedNoteForConfig = null  //Make second variable for selected note as a getaway from blur function killing itself. (dunno about the outline though)
 
+/**
+ * Hide the pop-up close animation on page load --
+ * TODO: Please fix this shitty hack in the future :(
+ */
+popupContainer.style.visibility = "hidden";
+
+setTimeout(() => {
+  popupContainer.style.visibility = "visible";
+}, 300);
+
+//
+
+
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
 getNotes().forEach(note => {
     const noteElement = createNoteElement(note.id, note.content)
