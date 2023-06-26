@@ -36,7 +36,7 @@ function promptDelete() {
     const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
     // we turn the message parameter into a variable, so that calling the function doesn't look as cluttered.
     const promptMessage = `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`
-    introducePopup("delete-note-prompt", promptMessage) 
+    introducePopup("delete-note-promptxxxxxxx", promptMessage) 
 
   /*  if (selectedNote) {
       const doDelete = confirm(`Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`);
@@ -83,6 +83,9 @@ function introducePopup(type, message) {
     "error": {
       title: "Error in code",
       confirmText: "OK",
+      onConfirm: function() {
+        cancelPrompt()
+      }
     },
   
     //More variants might come later, idfk
