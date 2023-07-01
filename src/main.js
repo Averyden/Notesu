@@ -21,6 +21,7 @@ let selectedNoteForConfig = null  //Make second variable for selected note as a 
 /**
  * Hide the pop-up close animation on page load --
  * TODO: Please fix this shitty hack in the future :(
+ * TODO: Fix stupid function!
  */
 popupContainer.style.visibility = "hidden";
 
@@ -295,7 +296,7 @@ function deleteNote({ id, noteElement }) {
         }
 }
   
-
+//This function is the root cause of all my problems (no delete until fix)
 function repositionNotes(startIndex, gapWidth) {
     const notes = Array.from(notesContainer.children);
     notes.forEach((note, index) => {
