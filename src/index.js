@@ -15,8 +15,9 @@ const popupContainer = document.getElementById("popupContainer")
 const popupBtnCancel = document.querySelector(".btn-cancel")
 const popupBtnConfirm = document.querySelector(".btn-confirm")
 
+//const delNoteSound = "../"
+
 let currentSelectedNote = null 
-let selectedNoteForConfig = null  //Make second variable for selected note as a getaway from blur function killing itself. (dunno about the outline though)
 
 /**
  * Hide the pop-up close animation on page load --
@@ -307,10 +308,8 @@ function repositionNotes(startIndex, gapWidth) {
     });
 }
   
-
-
 function updateSelectedNoteText() {
-    const selectedNote = getNotes().find((note) => note.id === selectedNoteForConfig)
+    const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
 
     if (selectedNote) {
         selectedNoteText.textContent = `Current selected note(${selectedNote.id}): ${selectedNote.content}`
