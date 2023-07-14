@@ -5,15 +5,20 @@ const addButton = notesContainer.querySelector(".add-note")
 const saveUpdateButton = document.querySelector(".save-update")
 const selectedNoteText = document.getElementById("sidebar-text")
 
+
+//get variables for sidebar buttons
 const menuButton = document.querySelector(".hamburger")
 const sidebar = document.querySelector(".sidebar")
 const deleteButton = document.querySelector(".deletenotebutton")
+const deadlineButton =  document.querySelector(".configuredeadlinebutton")
+
 
 const popupContainer = document.getElementById("popupContainer")
 //const popupTitle = document.getElementById("popupTitle");
 
 const popupBtnCancel = document.querySelector(".btn-cancel")
 const popupBtnConfirm = document.querySelector(".btn-confirm")
+const popupTextArea = document.getElementById("popupTextArea")
 
 //const delNoteSound = "../"
 
@@ -35,7 +40,7 @@ setTimeout(() => {
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
 getNotes().forEach(note => {
-    const noteElement = createNoteElement(note.id, note.content)
+    const noteElement = createNoteElement(note.id, note.content, note.deadline)
     notesContainer.insertBefore(noteElement, addButton)
 });
 
@@ -44,7 +49,12 @@ addButton.addEventListener("click", () => addNote())
 menuButton.addEventListener("click", toggleSidebar)
 deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
 popupBtnCancel.addEventListener("click", () => cancelPrompt())
-popupContainer.addEventListener("click", () => cancelPrompt());
+//popupContainer.addEventListener("click", () => cancelPrompt());
+deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note (Format DD/MM/YYYY)"));
+
+/**
+ * TODO: Find a way to check if the deadline has been exceeded, and when it is, the prompt should not question the users decision.
+ */
 
 function promptDelete() {
   
@@ -86,6 +96,7 @@ function introducePopup(type, message) {
         cancelPrompt()
       }
     },
+
     "confirmation-prompt": {
       title: "Confirmation",
       confirmText: "Confirm",
@@ -95,6 +106,15 @@ function introducePopup(type, message) {
       }
     },
     
+    "deadline-prompt": {
+      title: "Change deadline for note",
+      confirmText: "Set deadline",
+      onConfirm: function() {
+        configureNoteDeadline()
+        console.log("User configured note deadline.")
+      }
+    },
+
     "error": {
       title: "Error in code",
       confirmText: "OK",
@@ -132,6 +152,12 @@ function introducePopup(type, message) {
   popupTitle.innerText = title
   popupBtnConfirm.innerHTML = confirmText
 
+  if (type === "deadline-prompt") {
+    popupTextArea.style.display = "inline-block"
+  } else {
+    popupTextArea.style.display = "none"
+  }
+
   if (type !== "error") {
     popupBtnCancel.style.display = "inline-block"
   } else {
@@ -168,20 +194,26 @@ function saveNotes(notes) {
 
 }
 
-function createNoteElement(id, content) {
+function configureNoteDeadline() {
+  const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
+  const deadlineValue = document.getElementById(selectedNote.id).getElementsByClassName("note-deadline")
+  console.log(deadlineValue)
+}
+
+function createNoteElement(id, content, deadline) {
     const div = document.createElement("div");
     const element = document.createElement("textarea");
-    const deadline = document.createElement("span");
+    const deadlineElement = document.createElement("span");
 
     div.appendChild(element)
-    div.appendChild(deadline)
-    deadline.innerText = "No deadline has been set."
+    div.appendChild(deadlineElement)
+    deadlineElement.innerText = deadline || "No deadline has been set." 
 
     div.id = id;
 
     div.classList.add("note")
     element.classList.add("note-text")
-    deadline.classList.add("note-deadline")
+    deadlineElement.classList.add("note-deadline")
     element.value = content;
     element.placeholder = "Empty note"
 

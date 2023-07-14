@@ -99,6 +99,21 @@
     padding: 16px;
     text-align: center;
 }
+
+.popup .popup-textbox {
+    font-family: 'Roboto', sans-serif;
+    color: #2e2e2e;
+    background-color: #B0B0B0;
+    font-size: 15px;
+    padding: 16px;
+    text-align: center;
+    border-radius: 15px;
+    width: 70%;
+    height: 7%;
+    resize: none;
+    border: none;
+    overflow: hidden;
+}
   
 .popup-buttons {
     display: flex;
