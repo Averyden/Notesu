@@ -123,7 +123,8 @@
 .popup-buttons .btn-cancel,
 .popup-buttons .btn-confirm {
     margin: 8px;
-    width: 75px;
+    min-width: 75px;
+    width: auto;
     height: 30px;
     border: none;
     border-radius: 15px;

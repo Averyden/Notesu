@@ -68,6 +68,12 @@ body {
     hyphens: auto;
 }
 
+.note .note-text.exceeded {
+    color: #ff0000;
+}
+
+
+
 .note .note-text::after {
     content: '\A'; /* Insert a line break */
     white-space: pre; /* Preserve whitespace */
@@ -88,6 +94,10 @@ body {
     color: rgba(46, 46, 46, 0.15);
 }
 
+
+.note .note-deadline.exceeded {
+    color: #ff0000
+}
 
 /*@keyframes note-move {
     from {

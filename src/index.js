@@ -19,10 +19,12 @@ const popupContainer = document.getElementById("popupContainer")
 const popupBtnCancel = document.querySelector(".btn-cancel")
 const popupBtnConfirm = document.querySelector(".btn-confirm")
 const popupTextArea = document.getElementById("popupTextArea")
+popupTextArea.min = new Date().toLocaleDateString('en-us')
 
 //const delNoteSound = "../"
 
 let currentSelectedNote = null 
+let selectedNoteForConfig = null
 
 /**
  * Hide the pop-up close animation on page load --
@@ -50,7 +52,7 @@ menuButton.addEventListener("click", toggleSidebar)
 deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
 popupBtnCancel.addEventListener("click", () => cancelPrompt())
 //popupContainer.addEventListener("click", () => cancelPrompt());
-deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note (Format DD/MM/YYYY)"));
+deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note"));
 
 /**
  * TODO: Find a way to check if the deadline has been exceeded, and when it is, the prompt should not question the users decision.
@@ -110,7 +112,10 @@ function introducePopup(type, message) {
       title: "Change deadline for note",
       confirmText: "Set deadline",
       onConfirm: function() {
-        configureNoteDeadline()
+        const selectedNote = getNotes().find((note) => note.id === selectedNoteForConfig);
+        configureNoteDeadline(selectedNote.id)
+          //noteElement: document.getElementById(selectedNote.id),
+        selectedNoteForConfig = null
         console.log("User configured note deadline.")
       }
     },
@@ -194,10 +199,21 @@ function saveNotes(notes) {
 
 }
 
-function configureNoteDeadline() {
-  const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
-  const deadlineValue = document.getElementById(selectedNote.id).getElementsByClassName("note-deadline")
-  console.log(deadlineValue)
+function configureNoteDeadline(id) {
+  const currentNotes = getNotes()
+  const selectedNote = currentNotes.filter(currentNotes => currentNotes.id == id)[0]
+
+  
+  const deadlineElement = document.getElementById(selectedNote.id).querySelector(".note-deadline");
+  const deadlineInput = document.getElementById("popupTextArea")
+  const deadlineValue = deadlineInput.value
+  console.log(`Deadline of note ${selectedNote.id} has been set to ${deadlineValue}`)
+
+  selectedNote.deadline = deadlineValue;
+  deadlineElement.innerText = deadlineValue;
+
+  // selectedNote.content = newContent
+  saveNotes(currentNotes)
 }
 
 function createNoteElement(id, content, deadline) {
@@ -222,6 +238,7 @@ function createNoteElement(id, content, deadline) {
     element.addEventListener("focus", () => {
       currentSelectedNote = id
       selectedNoteForConfig = id
+      console.log(`currently selected note: ${currentSelectedNote}, meanwhile selected note for config = ${selectedNoteForConfig}`)
       div.classList.add("note-focused")
       updateSelectedNoteText()
     });
@@ -241,6 +258,17 @@ function createNoteElement(id, content, deadline) {
     div.addEventListener("mousedown", () => {
       clearTimeout(blurTimeout);
     })
+
+    //check if deadline has been exceeded, and if it is, then add the "exceeded" class which makes the text red.
+    if (deadline) {
+      const currentDate = new Date()
+      const deadlineDate = new Date(deadline);
+
+      if (deadlineDate < currentDate) {
+        deadlineElement.classList.add("exceeded")
+        element.classList.add("exceeded")
+      }
+    }
 
     return div
 }
