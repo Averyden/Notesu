@@ -1,5 +1,5 @@
-import { introducePopup, cancelPrompt } from "./popup.js"
-import { promptDelete, addNote,   } from "./notes.js"
+import {introducePopup, cancelPrompt} from "./popup.js"
+import {promptDelete, addNote} from "./notes.js"
 
 //get variables for sidebar buttons
 const menuButton = document.querySelector(".hamburger")
