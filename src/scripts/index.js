@@ -64,19 +64,6 @@ function promptDelete() {
     // we turn the message parameter into a variable, so that calling the function doesn't look as cluttered.
     const promptMessage = `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`
     introducePopup("delete-note-prompt", promptMessage) 
-
-  /*  if (selectedNote) {
-      const doDelete = confirm(`Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`);
-  
-      if (doDelete) {
-        deleteNote({
-          id: selectedNote.id,
-          noteElement: document.getElementById(selectedNote.id),
-        });
-        currentSelectedNote = null;
-        updateSelectedNoteText(); 
-      }
-    }*/
 }
   
 function introducePopup(type, message) {
@@ -299,24 +286,6 @@ function updateNote(id, newContent) {
     console.log(`Note ${selectedNote.id} has been updated`)
 }
 
-//this below is just for deletion of notes with no animation
-// function deleteNote({ id, noteElement }) {
-//     const currentNotes = getNotes().filter((note) => note.id !== id);
-//     saveNotes(currentNotes);
-  
-//     console.log("gredty");
-//     if (noteElement) {
-//       console.log(`deleting note ${noteElement}`);
-//       notesContainer.removeChild(noteElement);
-//       console.log("deleted");
-//     }
-  
-//     console.log("fcxvgbfbvdgfgbfg");
-//     if (currentSelectedNote === id) {
-//       currentSelectedNote = null;
-//       updateSelectedNoteText();
-//     }
-//   }
 
 //all this below is the function for the start of the desired animation, but because ive now spent 7 hours on this shit i cant be botherd to try and solve this fucking davinci code.
 function deleteNote({ id, noteElement }) {
@@ -347,7 +316,6 @@ function deleteNote({ id, noteElement }) {
             noteElement.addEventListener('transitionend', handleTransitionEnd);
         
             function handleTransitionEnd() {
-              console.log("hiiiii")
               noteElement.removeEventListener('transitionend', handleTransitionEnd);
               notesContainer.removeChild(noteElement);
               repositionNotes(noteIndex, gapWidth);
@@ -369,7 +337,7 @@ function repositionNotes(startIndex, gapWidth) {
 }
   
 function updateSelectedNoteText() {
-    const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
+    const selectedNote = getNotes().find((note) => note.id === selectedNoteForConfig)
 
     if (selectedNote) {
         selectedNoteText.textContent = `Current selected note(${selectedNote.id}): ${selectedNote.content}`
