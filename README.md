@@ -5,4 +5,4 @@ A simple webapp for short sticky notes, with too much effort poured into it.
 
 
 
-<sub><sup>I am a masochist, which is why I am working in clean javascript 🪦</sup></sub>
+<sub><sup>I hate myself, which is why I am working with javascript 🪦</sup></sub>
