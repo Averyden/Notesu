@@ -1,13 +1,11 @@
 //Handling all note functions in one document to make entire project cleaner :3
-import {introducePopup} from "./popup.js"
+import introducePopup from "src/scripts/index.js"
 
 const notesContainer = document.getElementById("app")
 const addButton = notesContainer.querySelector(".add-note")
 
 const selectedNoteText = document.getElementById("sidebar-text")
 
-window.savedNotes = [];
-//figure out how to translate this bullshit to my own shit.
 
 let currentSelectedNote = null 
 let selectedNoteForConfig = null
@@ -29,7 +27,7 @@ export function promptDelete() {
 }
 
 
-export function getNotes() {
+function getNotes() {
     console.log("Getting user notes..")
     return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
 }
@@ -46,12 +44,9 @@ function updateNote(id, newContent) {
     console.log(`Note ${selectedNote.id} has been updated`)
 }
 
-//  TODO: MAKE IT SAVE TO OBJECT INSIDE SavedNotes ARRAY
 function saveNotes(notes) {
     localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
-    // savedNotes.push[{
-    //     id
-    // }]
+
 }
 
 export function configureNoteDeadline(id) {
@@ -76,23 +71,8 @@ function createNoteElement(id, content, deadline) {
     const element = document.createElement("textarea");
     const deadlineElement = document.createElement("span");
 
-    const noteElement = {
-      id: "",
-      content: "",
-      deadline: "",
-    }
-
-    noteElement.id = id
-    noteElement.content = content
-    noteElement.deadline = deadline
-
-    savedNotes.push(noteElement)
-    
-    console.log(noteElement)
-
     div.appendChild(element)
     div.appendChild(deadlineElement)
-
     deadlineElement.innerText = deadline || "No deadline has been set." 
 
     div.id = id;
@@ -100,8 +80,6 @@ function createNoteElement(id, content, deadline) {
     div.classList.add("note")
     element.classList.add("note-text")
     deadlineElement.classList.add("note-deadline")
-
-    
     element.value = content;
     element.placeholder = "Empty note"
 
@@ -144,8 +122,6 @@ function createNoteElement(id, content, deadline) {
 
     return div
 }
-
-
 
 export function addNote() {
     const currentNotes = getNotes()

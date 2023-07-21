@@ -1,4 +1,4 @@
-import {deleteNote, configureNoteDeadline, getNotes, selectedNoteForConfig} from "./notes.js"
+import {deleteNote, configureNoteDeadline} from "./notes.js"
 
 const popupBtnCancel = document.querySelector(".btn-cancel")
 const popupBtnConfirm = document.querySelector(".btn-confirm")

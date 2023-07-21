@@ -1,5 +1,5 @@
-import { introducePopup, cancelPrompt } from "./popup.js"
-import { promptDelete, addNote } from "./notes.js"
+import {introducePopup, cancelPrompt} from "./popup.js"
+import {promptDelete, addNote} from "./notes.js"
 
 //get variables for sidebar buttons
 const menuButton = document.querySelector(".hamburger")
@@ -11,25 +11,12 @@ const deadlineButton =  document.querySelector(".configuredeadlinebutton")
 const popupContainer = document.getElementById("popupContainer")
 //const popupTitle = document.getElementById("popupTitle");
 
-
-//variables from other placed
-
-//popup.js
-const popupBtnCancel = document.querySelector(".btn-cancel")
-
-
-//notes.js
-const notesContainer = document.getElementById("app")
-const addButton = notesContainer.querySelector(".add-note")
-
-
-
 addButton.addEventListener("click", () => addNote())
 deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
 deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note"));
 
 
-
+//const delNoteSound = "../"
 /**
  * Hide the pop-up close animation on page load --
  * TODO: Please fix this shitty hack in the future :(
