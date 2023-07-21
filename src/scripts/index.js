@@ -1,5 +1,7 @@
 //gotta figure out a way for the selectedNoteForConfig variable to be able to be deselected if the user clicks off the note but not on any of the config buttons in the sidebar.
-
+/**
+ * TODO: Seperate this script like legos, where note functions are in their own script, and so on and so forth.
+ */
 const notesContainer = document.getElementById("app")
 const addButton = notesContainer.querySelector(".add-note")
 const saveUpdateButton = document.querySelector(".save-update")
