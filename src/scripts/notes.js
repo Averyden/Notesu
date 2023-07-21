@@ -123,7 +123,7 @@ function createNoteElement(id, content, deadline) {
     return div
 }
 
-export function addNote() {
+function addNote() {
     const currentNotes = getNotes()
     const noteObject = {
         id: Math.floor(Math.random() * 10000),
@@ -138,7 +138,7 @@ export function addNote() {
 }
 
 //all this below is the function for the start of the desired animation, but because ive now spent 7 hours on this shit i cant be botherd to try and solve this fucking davinci code.
-export function deleteNote({ id, noteElement }) {
+function deleteNote({ id, noteElement }) {
     const currentNotes = getNotes().filter((note) => note.id !== id);
         saveNotes(currentNotes);
 
