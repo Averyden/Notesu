@@ -323,49 +323,17 @@ function deleteNote({ id, noteElement }) {
     const currentNotes = getNotes().filter((note) => note.id !== id);
         saveNotes(currentNotes);
 
-
         if (noteElement) {
-            const noteIndex = Array.from(notesContainer.children).indexOf(noteElement);
-            const noteWidth = noteElement.offsetWidth;
-            const gapWidth = 16; // Set the value of your gap width here
-        
-            const notes = Array.from(notesContainer.children);
-
-           
             noteElement.style.opacity = '0';
-            
-            
-            setTimeout(() => {
-              notes.forEach((note, index) => {
-                if (index > noteIndex) {
-                  note.style.transition = `transform 0.3s ease`;
-                  note.style.transform = `translateX(-${noteWidth + gapWidth}px)`;
-                }
-              });
-            }, 300); // Timeout is set to 300 to skip the faulty animation.. I guess we'll just roll with this for now ¯\_(ツ)_/¯
-        
             noteElement.addEventListener('transitionend', handleTransitionEnd);
-        
+
             function handleTransitionEnd() {
-              console.log("hiiiii")
+              // this functions sole purpose is to prevent the note fading away from instantly deleting itself, which in that case would make the animation useless and wasted effort.
               noteElement.removeEventListener('transitionend', handleTransitionEnd);
               notesContainer.removeChild(noteElement);
-              repositionNotes(noteIndex, gapWidth);
             }
             
-            console.log("fhgnfhgd")
         }
-}
-  
-//This function is the root cause of all my problems (no delete until fix)
-function repositionNotes(startIndex, gapWidth) {
-    const notes = Array.from(notesContainer.children);
-    notes.forEach((note, index) => {
-      if (index >= startIndex) {
-        note.style.transition = '';
-        note.style.transform = '';
-      }
-    });
 }
   
 function updateSelectedNoteText() {
