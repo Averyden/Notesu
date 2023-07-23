@@ -41,6 +41,9 @@ setTimeout(() => {
 
 //
 
+//create noteStorage table
+window.noteStorage = [];
+
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
 getNotes().forEach(note => {
@@ -222,6 +225,21 @@ function createNoteElement(id, content, deadline) {
     const div = document.createElement("div");
     const element = document.createElement("textarea");
     const deadlineElement = document.createElement("span");
+
+    const noteElement = {
+      id: "",
+      content: "",
+      deadline: "",
+    }
+
+    noteElement.id = id
+    noteElement.content = content
+    noteElement.deadline = deadline
+
+    noteStorage.push(noteElement)
+
+    console.log(noteElement)
+    console.log(noteStorage)
 
     div.appendChild(element)
     div.appendChild(deadlineElement)
