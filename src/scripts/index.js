@@ -319,25 +319,6 @@ function updateNote(id, newContent) {
     console.log(`Note ${selectedNote.id} has been updated`)
 }
 
-//this below is just for deletion of notes with no animation
-// function deleteNote({ id, noteElement }) {
-//     const currentNotes = getNotes().filter((note) => note.id !== id);
-//     saveNotes(currentNotes);
-  
-//     console.log("gredty");
-//     if (noteElement) {
-//       console.log(`deleting note ${noteElement}`);
-//       notesContainer.removeChild(noteElement);
-//       console.log("deleted");
-//     }
-  
-//     console.log("fcxvgbfbvdgfgbfg");
-//     if (currentSelectedNote === id) {
-//       currentSelectedNote = null;
-//       updateSelectedNoteText();
-//     }
-//   }
-
 //all this below is the function for the start of the desired animation, but because ive now spent 7 hours on this shit i cant be botherd to try and solve this fucking davinci code.
 function deleteNote({ id, noteElement }) {
     const currentNotes = getNotes().filter((note) => note.id !== id);
