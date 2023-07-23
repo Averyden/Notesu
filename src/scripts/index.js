@@ -39,10 +39,14 @@ setTimeout(() => {
   popupContainer.style.visibility = "visible";
 }, 300);
 
-//
+/**
+ * TODO: figure out how maps work, i needa save it like maps cause thats apparently better.
+ **/
+
 
 //create noteStorage table
-window.noteStorage = [];
+const noteStorage = new Map()
+
 
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
@@ -195,12 +199,19 @@ function toggleSidebar() {
 }
 
 function getNotes() {
-    console.log("Getting user notes..")
-    return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
+
+  console.log("Getting user notes..")
+  return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
 }
 
-function saveNotes(notes) {
-    localStorage.setItem("stickynotes-notes", JSON.stringify(noteStorage));
+
+function saveNotes(noteId) {
+ // 
+  
+  localStorage.setItem("stickynotes-notes", JSON.stringify(noteStorage));
+  console.log("BELOW IS TESTINS")
+
+  console.log(JSON.parse(localStorage.getItem("stickynotes-notes")))
 
 }
 
@@ -226,17 +237,8 @@ function createNoteElement(id, content, deadline) {
     const element = document.createElement("textarea");
     const deadlineElement = document.createElement("span");
 
-    const noteElement = {
-      id: "",
-      content: "",
-      deadline: "",
-    }
 
-    noteElement.id = id
-    noteElement.content = content
-    noteElement.deadline = deadline
-
-    noteStorage.push(noteElement)
+    noteStorage.set(id, {content: content, deadline:deadline})
 
     console.log(noteElement)
     console.log(noteStorage)
@@ -309,11 +311,11 @@ function addNote() {
 
 function updateNote(id, newContent) {
     console.log("Updating note...")
-    const currentNotes = getNotes()
+    const currentNotes = noteStorage
     const selectedNote = currentNotes.filter(currentNotes => currentNotes.id == id)[0]
 
     selectedNote.content = newContent
-    saveNotes(currentNotes)
+    saveNotes(id)
 
     //dunno why the fuck js wants you to use backticks if you wanna format shit but.. if it works.. it works. 🤷‍♀️
     console.log(`Note ${selectedNote.id} has been updated`)
