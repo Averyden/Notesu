@@ -200,7 +200,7 @@ function getNotes() {
 }
 
 function saveNotes(notes) {
-    localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
+    localStorage.setItem("stickynotes-notes", JSON.stringify(noteStorage));
 
 }
 
@@ -341,19 +341,19 @@ function updateNote(id, newContent) {
 //all this below is the function for the start of the desired animation, but because ive now spent 7 hours on this shit i cant be botherd to try and solve this fucking davinci code.
 function deleteNote({ id, noteElement }) {
     const currentNotes = getNotes().filter((note) => note.id !== id);
-        saveNotes(currentNotes);
+      
 
-        if (noteElement) {
-            noteElement.style.opacity = '0';
-            noteElement.addEventListener('transitionend', handleTransitionEnd);
+      if (noteElement) {
+          noteElement.style.opacity = '0';
+          noteElement.addEventListener('transitionend', handleTransitionEnd);
 
-            function handleTransitionEnd() {
-              // this functions sole purpose is to prevent the note fading away from instantly deleting itself, which in that case would make the animation useless and wasted effort.
-              noteElement.removeEventListener('transitionend', handleTransitionEnd);
-              notesContainer.removeChild(noteElement);
-            }
-            
-        }
+          function handleTransitionEnd() {
+            // this functions sole purpose is to prevent the note fading away from instantly deleting itself, which in that case would make the animation useless and wasted effort.
+            noteElement.removeEventListener('transitionend', handleTransitionEnd);
+            notesContainer.removeChild(noteElement);
+          }
+      }
+      saveNotes(currentNotes);
 }
   
 function updateSelectedNoteText() {
