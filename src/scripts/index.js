@@ -101,6 +101,14 @@ function introducePopup(type, message) {
       }
     },
 
+    "mark-as-complete": {
+      title: "Mark Note as complete",
+      confirmText: "Complete Note",
+      onConfirm: function() {
+      // Figure out how to handle note when completed (might need some more HTML work before I get to work.)
+      }
+    },
+
     "confirmation-prompt": {
       title: "Confirmation",
       confirmText: "Confirm",
