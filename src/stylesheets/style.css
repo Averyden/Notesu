@@ -196,6 +196,9 @@ header {
 }
 
 .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: fixed;
     top: 0;
     left: -300px;
@@ -205,15 +208,6 @@ header {
     transition: left 0.3s;
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
     z-index: 5;
-}
-
-.sidebar-bottom {
-    display: flex;
-    flex-direction: column;
-} 
-
-.sidebar-bottom hr {
-    width: 100%;
 }
 
 .sidebar-bottom .Bottom-content{
