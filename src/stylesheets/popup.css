@@ -120,8 +120,8 @@
     padding: 5px;
 }
 
-.popup-buttons .btn-cancel,
-.popup-buttons .btn-confirm {
+.popup-buttons #btn-cancel,
+.popup-buttons #btn-confirm {
     margin: 8px;
     min-width: 75px;
     width: auto;
@@ -134,12 +134,12 @@
     cursor: pointer;
 }
 
-.popup-buttons .btn-confirm {
+.popup-buttons #btn-confirm {
     background-color: #f13ce8;
     color: #FFF;
     transition: background 0.3s;
 }
 
-.popup-buttons .btn-confirm:hover {
+.popup-buttons #btn-confirm:hover {
     background: #d823cf;
 }

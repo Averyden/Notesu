@@ -11,15 +11,15 @@ const selectedNoteText = document.getElementById("sidebar-text")
 //get variables for sidebar buttons
 const menuButton = document.querySelector(".hamburger")
 const sidebar = document.querySelector(".sidebar")
-const deleteButton = document.querySelector(".deletenotebutton")
-const deadlineButton =  document.querySelector(".configuredeadlinebutton")
+const deleteButton = document.getElementById("deletenotebutton")
+const deadlineButton =  document.getElementById("configuredeadlinebutton")
 
 
 const popupContainer = document.getElementById("popupContainer")
 //const popupTitle = document.getElementById("popupTitle");
 
-const popupBtnCancel = document.querySelector(".btn-cancel")
-const popupBtnConfirm = document.querySelector(".btn-confirm")
+const popupBtnCancel = document.getElementById("btn-cancel")
+const popupBtnConfirm = document.getElementById("btn-confirm")
 const popupTextArea = document.getElementById("popupTextArea")
 popupTextArea.min = new Date().toLocaleDateString('en-us')
 
