@@ -11,7 +11,7 @@ body {
 #app {
     display: flex;
     grid-template-columns: repeat(auto-fill, 200px);
-    padding: 24px;
+    padding: 35px;
     gap: 24px;
     flex-wrap: wrap;
     transition: margin-left 0.3s, grid-column 0.3s;
@@ -150,7 +150,7 @@ body {
 header {
     display: flex;
     align-items: center;
-    position: relative;
+    position: fixed;
     z-index: 6;
 }
 
@@ -206,7 +206,25 @@ header {
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
     z-index: 5;
 }
-  
+
+.sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+} 
+
+.sidebar-bottom hr {
+    width: 100%;
+}
+
+.sidebar-bottom .Bottom-content{
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.sidebar-bottom li {
+    padding: 8px !important;
+}
 .sidebar.is-open {
     left: 0;
   }

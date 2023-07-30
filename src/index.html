@@ -29,7 +29,7 @@
         </button>
     </header>
 
-    <nav class="sidebar"> 
+    <nav class="sidebar is-open"> 
         <div class="sidebar-header">
             <p>Note configuration menu</p>
         </div>
@@ -37,10 +37,17 @@
         <ul>
             <li id="sidebar-text">You have not selected a note to configure.</li> <!--Current selected note:-->
             <li><a href="#" class="deletenotebutton">Delete Note</a></li>
+            <li><a href="#" class="marknoteascompleted">Mark Note as completed</a></li>
             <li><a href="#">Change Note Color</a></li>
             <li><a href="#">Change priority</a></li>
             <li><a href="#" class="configuredeadlinebutton">Add deadline</a></li>
         </ul>
+
+        <div class="sidebar-bottom">
+            <hr>
+            <li><a href="#" class="completednotes Bottom-content">Show completed Notes</a></li> <!--figure out vite so that i can do /completednotes instead of just changing the contents of the page. (SAME MUST BE DONE WITH NOTEBOOKS.)-->
+            <li><a href="#" class="notebooks Bottom-content">Configure Notebooks</a></li>
+        </div>
     </nav>
 
     <!--CUSTOM POPUP MONEY GANG.... WE HATE DEFAULT POPUPS-->
