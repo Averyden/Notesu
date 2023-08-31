@@ -238,6 +238,12 @@ function createNoteElement(id, content, deadline) {
     let blurTimeout;
 
     element.addEventListener("focus", () => {
+      //Automatically slide out the sidebar for note configuration, as that's usually why you'd click a note (aside from changing its text.)
+      menuButton.classList.add("is-active")
+      sidebar.classList.add("is-open")
+      notesContainer.classList.add("app--sidebar-open")
+
+      // do the rest of what it's supposed to do when a note is clicked      
       currentSelectedNote = id
       selectedNoteForConfig = id
       console.log(`currently selected note: ${currentSelectedNote}, meanwhile selected note for config = ${selectedNoteForConfig}`)
@@ -247,6 +253,12 @@ function createNoteElement(id, content, deadline) {
 
     element.addEventListener("blur", () => {
       blurTimeout = setTimeout(() => {
+        // Put the sidebar away, as the user is seemingly done with the note.
+        menuButton.classList.remove("is-active")
+        sidebar.classList.remove("is-open")
+        notesContainer.classList.remove("app--sidebar-open")
+
+        //reset it all
         currentSelectedNote = null
         div.classList.remove("note-focused")
         updateSelectedNoteText()
