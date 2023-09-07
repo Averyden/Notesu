@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--set up metadata for site (such as page title and icon)-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#a563db">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+
+    <title>Notesu</title>
+    <link rel="icon" href="./assets/icon.png">
+    <link rel="stylesheet" href="../src/stylesheets/style.css">
+    <link rel="stylesheet" href="../src/stylesheets/popup.css">
+    <script src="../src/scripts/index.js" defer></script>
+
+    <!--render font-->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> -->
+
+</head>
+
+<body>
+    <!--Making a hamburger menu to try and add configuration options (like deleting notes or changing note color?)-->
+    <header>
+        <button class="hamburger">
+            <div class="bar"></div>
+        </button>
+    </header>
+
+    <nav class="sidebar"> 
+        <div>    
+            <div class="sidebar-header">
+                <p>Note configuration menu</p>
+            </div>
+
+            <ul>
+                <li id="sidebar-text">You have not selected a note to configure.</li> <!--Current selected note:-->
+                <li><a href="#" id="deletenotebutton">Delete Note</a></li>
+                <li><a href="#" id="marknoteascompleted">Mark Note as completed</a></li>
+                <li><a href="#">Change Note Color</a></li>
+                <li><a href="#">Change priority</a></li>
+                <li><a href="#" id="configuredeadlinebutton">Add deadline</a></li>
+            </ul>
+        </div>  
+
+        <div class="sidebar-bottom">
+            <hr>
+            <li><a href="#" class="completednotes Bottom-content">Show completed Notes</a></li> <!--figure out vite so that i can do /completednotes instead of just changing the contents of the page. (SAME MUST BE DONE WITH NOTEBOOKS.)-->
+            <li><a href="#" class="notebooks Bottom-content">Configure Notebooks</a></li>
+        </div>
+    </nav>
+
+    <!--CUSTOM POPUP MONEY GANG.... WE HATE DEFAULT POPUPS-->
+    <div class="popup-container" id="popupContainer"> 
+        <div class="popup">
+            <span class="popup-title" id="popupTitle"></span> 
+            <span class="popup-message" id="popupText"></span>
+            <input type="date" class="popup-textbox" id="popupTextArea"></textarea>
+            <div class="popup-buttons">
+                <button id="btn-cancel">Cancel</button>
+                <button id="btn-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- <div id="app">
+        <button class="add-note" type="button">+</button>
+    </div> -->
+</body>
+
+</html>
