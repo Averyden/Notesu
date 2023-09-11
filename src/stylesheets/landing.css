@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Roboto";
-    src: url("../assets/fonts/Roboto-Regular.ttf");
+    src: url("../assets/Roboto-Regular.ttf");
 }
 
 body {
@@ -23,6 +23,13 @@ header {
 
 .cookin {
     background: #a2ff00 linear-gradient(140deg, rgba(1,18,34,1) 0%, rgb(255, 215, 16) 100%) no-repeat 0 0;
+}
+
+.error-message p {
+    font-family: "Roboto";
+    font-size: 15px;
+    margin: 5px;
+    color: #ff5151;
 }
 
 .copyright a {

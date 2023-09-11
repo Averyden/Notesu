@@ -6,29 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="../src/stylesheets/landing.css">
-    <link rel="stylesheet" href="../src/stylesheets/popup.css">
+    <link rel="stylesheet" href="../src/stylesheets/landingPopup.css">
 
     <script src="../src/scripts/accountHandler.js"></script>
     <!--<script src="../src/scripts/main.js"></script>-->
     
-    <link rel="icon" href="../src/assets/images/icon.png">
+    <link rel="icon" href="../src/assets/icon.png">
     <title>Notesu - landing</title>
-
-    <!--Spørg søren hvordan denne funktion virker?
-    {% if title %}
-        <title>Tracksu - {{ title }}</title>
-    {% else %}
-        <title>Tracksu</title>
-    {% endif %}
--->
     
 </head>
 <body>
     <div class="center-prompt">
         <div class="prompt-container">
             <div class="site-title">
-                <img src="../src/assets/images/tracksu_proposal 1.png">
+                <img src="../src/assets/icon.png">
+                <!-- <img src="../src/assets/images/tracksu_proposal 1.png"> -->
             </div>
+
+            {% if request.args.get('success') == 'False' %}
+            <div class="error-message">
+                <p>Login or registration failed. Please try again.</p>
+            </div>
+            {% endif %}
 
             <div class="button-container">
                 <button class="button" onclick="showPopup('login')">Existing user</button>
