@@ -1,0 +1,249 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("../assets/fonts/Roboto-Regular.ttf");
+}
+
+body {
+    margin: 0;
+    background: #a563db;
+    height: 100vh;
+  }
+
+header {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 6;
+}
+
+.cooking {
+    width: 100%;
+    justify-content: center;
+}
+
+.cookin {
+    background: #a2ff00 linear-gradient(140deg, rgba(1,18,34,1) 0%, rgb(255, 215, 16) 100%) no-repeat 0 0;
+}
+
+.copyright a {
+    font-family: "Roboto";
+    font-size: 10px;
+    margin: 16px;
+    text-decoration: none;
+    color: #FFF;
+}
+
+.sidebar a {
+    background: rgba(1,18,34,1);
+    border: 3px solid;
+    border-radius: 25px;
+    border-color: #a31ffc;
+    padding: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: #FFF;
+    font-family: "Roboto";
+} 
+
+p {
+    font-size: 50px;
+    color: #FFF;
+    text-align: center;
+    font-family: "Roboto";
+    margin: 0px;
+}
+
+#app {
+
+    transition: margin-left 0.3s, grid-column 0.3s;
+}
+
+#app img {
+    width: 350px;
+    height: 350px;
+}
+
+#app.app--sidebar-open {
+    margin-left: 300px;
+}
+
+.site-title {
+    display: flex;
+    align-items: center; /* Horizontally center content */
+    justify-content: center; /* Vertically center content */
+    margin: 16px;
+    margin-bottom: 20px; /* Add space between site-title and button-container */
+}
+
+#existingAccountBTN {
+    background-color: #f13ce8;
+    color: #FFF;
+    transition: background 0.3s;
+}
+
+#existingAccountBTN:hover {
+    background: #d823cf;
+}
+
+.site-title img {
+    width: 270px;
+    height: 100px;
+}
+
+.center-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+
+button {
+    margin: 8px;
+    min-width: 100px;
+    width: auto;
+    height: 30px;
+    border: none;
+    border-radius: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: auto;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.prompt-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 35%;
+    
+    padding: 20px;
+    border-radius: 10px;
+   
+}
+
+.hamburger {
+    position: relative;
+    display: block;
+    width: 35px;
+    cursor: pointer;
+    height: 35px;
+    appearance: none;
+    background: none;
+    outline: none;
+    border: none;
+    z-index: 101;
+}
+
+.button-container {
+    justify-content: space-around; /* Horizontally space the buttons */
+    margin-top: 20px; /* Add space between site-title and button-container */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-container a {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #55cdfc;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.hamburger .bar,
+.hamburger:after,
+.hamburger:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0px;
+    transition: 0.4s;
+}
+
+.hamburger.is-active:before {
+    transform: rotate(-45deg) translate(-8px, 6px);
+    background-color: #f7a8b8;
+}
+
+.hamburger.is-active:after {
+    opacity: 0;
+    /* transform: rotate(45deg) translate(-9px, -8px);
+    background-color: #55cdfc;   */
+}
+
+.hamburger.is-active .bar {
+    transform: rotate(45deg) translate(-2px, 0px);
+    background-color: #55cdfc;  
+}
+
+.sidebar {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: #fff;
+    transition: left 0.3s;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
+    z-index: 5;
+}
+
+.sidebar #fed {
+    height: 270px;
+    width: 270px;
+}
+
+
+.sidebar-bottom .Bottom-content{
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.sidebar.is-open {
+    left: 0;
+  }
+  
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+  
+.sidebar li {
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+#sidebar-text {
+    font-family: 'Roboto';
+    color: #2e2e2e;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.sidebar-header {
+    margin-bottom: 1px;
+    padding: 16px;
+    background-color: #ffffff;
+}
+  
+.sidebar-header p {
+    /*margin: 10px;*/
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 25px;
+}
