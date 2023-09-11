@@ -28,11 +28,12 @@ class NotesuData():
         c.execute("""INSERT INTO tracking (value, trackid) VALUES (?, ?);""",(value, id))
         db.commit()
 
-    def register_new_note(self, id):
+    def create_note(self, noteID, ownerID):
         db = self._get_db()
         c = db.cursor()
-        c.execute("""INSERT INTO Notes (content, deadline, ownerID) VALUES (?, ?, ?)""", (None, None, id))
+        c.execute("INSERT INTO Notes (id, content, deadline, ownerID) VALUES (?, ?, ?, ?);", (noteID, None, None, ownerID))
         db.commit()
+
 
     def getNotesForUser(self, userID):
         c = self._get_db().cursor()
@@ -58,14 +59,15 @@ class NotesuData():
         return values
 
     def save_notes(self, noteID, noteText, noteDeadline):
-        c = self._get_db().cursor()
-        c.excecute("UPDATE Notes SET content = ? deadline = ? WHERE id = ?;", (noteText, notesDeadline, noteID))
+        db = self._get_db()
+        c = db.cursor()
+        c.execute("UPDATE Notes SET content = ?, deadline = ? WHERE id = ?;", (noteText, noteDeadline, noteID))
+        db.commit()
 
-
-    def clear_values(self, trackid):
+    def delete_note(self, noteID):
         c = self._get_db().cursor()
-        values = []
-        c.execute("DELETE FROM tracking WHERE trackid = ?;", [trackid])
+        c.execute("DELETE FROM Notes WHERE id = ?;", (noteID,))
+        self._get_db().commit()
         
 
         return values
@@ -130,7 +132,7 @@ class NotesuData():
 
         c = db.cursor()
         try:
-            c.execute("""CREATE TABLE UserProfiles (
+            c.execute("""CREATE TABLE IF NOT EXISTS UserProfiles (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT,
                 email TEXT,
@@ -139,7 +141,7 @@ class NotesuData():
             print(e)
 
         try:
-            c.execute("""CREATE TABLE Notes (
+            c.execute("""CREATE TABLE IF NOT EXISTS Notes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 content TEXT,
                 deadline DATE,
@@ -149,3 +151,4 @@ class NotesuData():
 
         db.commit()
         return 'Database tables created'
+
