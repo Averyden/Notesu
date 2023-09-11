@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
 
     <title>Notesu</title>
-    <link rel="icon" href="./assets/icon.png">
+    <link rel="icon" href="../src/assets/icon.png">
     <link rel="stylesheet" href="../src/stylesheets/style.css">
     <link rel="stylesheet" href="../src/stylesheets/popup.css">
     <script src="../src/scripts/index.js" defer></script>
@@ -29,8 +29,8 @@
         </button>
     </header>
 
-    <nav class="sidebar"> 
-        <div>    
+    <nav class="sidebar">
+        <div>
             <div class="sidebar-header">
                 <p>Note configuration menu</p>
             </div>
@@ -43,7 +43,7 @@
                 <li><a href="#">Change priority</a></li>
                 <li><a href="#" id="configuredeadlinebutton">Add deadline</a></li>
             </ul>
-        </div>  
+        </div>
 
         <div class="sidebar-bottom">
             <hr>
@@ -53,9 +53,9 @@
     </nav>
 
     <!--CUSTOM POPUP MONEY GANG.... WE HATE DEFAULT POPUPS-->
-    <div class="popup-container" id="popupContainer"> 
+    <div class="popup-container" id="popupContainer">
         <div class="popup">
-            <span class="popup-title" id="popupTitle"></span> 
+            <span class="popup-title" id="popupTitle"></span>
             <span class="popup-message" id="popupText"></span>
             <input type="date" class="popup-textbox" id="popupTextArea"></textarea>
             <div class="popup-buttons">
@@ -64,8 +64,12 @@
             </div>
         </div>
     </div>
-    
-    
+
+
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
     <!-- <div id="app">
         <button class="add-note" type="button">+</button>
     </div> -->

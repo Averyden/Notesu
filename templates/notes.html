@@ -1,10 +1,8 @@
-{% extends "layout.html" %}
-{% block content %}
-{% if loggedin %}
+{% extends 'layout.html' %}
 
+{% block content %}
     <div id="app">
         <button class="add-note" type="button">+</button>
     </div>
-
-{% endif %}
-{% endblock content %}
+    <!-- Include any additional content specific to the /home page -->
+{% endblock %}
