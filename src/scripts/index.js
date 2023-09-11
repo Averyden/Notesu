@@ -198,10 +198,9 @@ function getNotes() {
 
 function saveNotes(notes) {
     localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
-
 }
 
-function configureNoteDeadline(id) {
+function configureNoteDeadline(id) { //configure this later so that it actually do the thing
   const currentNotes = getNotes()
   const selectedNote = currentNotes.filter(currentNotes => currentNotes.id == id)[0]
 
@@ -215,7 +214,7 @@ function configureNoteDeadline(id) {
   deadlineElement.innerText = deadlineValue;
 
   // selectedNote.content = newContent
-  saveNotes(currentNotes)
+  //saveNotes(currentNotes)
 }
 
 function createNoteElement(id, content, deadline) {
@@ -276,47 +275,93 @@ function createNoteElement(id, content, deadline) {
 }
 
 function addNote() {
-    const currentNotes = getNotes()
-    const noteObject = {
-        id: Math.floor(Math.random() * 10000),
-        content: ""
-    };
+  const currentNotes = getNotes();
 
-    const noteElement = createNoteElement(noteObject.id, noteObject.content)
-    notesContainer.insertBefore(noteElement, addButton)
 
-    currentNotes.push(noteObject)
-    saveNotes(currentNotes)
+  const noteObject = {
+      id: Math.floor(Math.random() * 10000),
+      content: "",
+      deadline: ""
+  };
+
+  const noteElement = createNoteElement(noteObject.id, noteObject.content);
+  notesContainer.insertBefore(noteElement, addButton);
+
+  currentNotes.push(noteObject);
+  //saveNotes(currentNotes);
+
+  // Send new note data to server for creation
+  const data = {
+      id: noteObject.id,
+  };
+
+  fetch('/createnote', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
 }
 
 function updateNote(id, newContent) {
-    console.log("Updating note...")
-    const currentNotes = getNotes()
-    const selectedNote = currentNotes.filter(currentNotes => currentNotes.id == id)[0]
+  const currentNotes = getNotes();
+  const selectedNote = currentNotes.find((note) => note.id == id);
 
-    selectedNote.content = newContent
-    saveNotes(currentNotes)
+  selectedNote.content = newContent;
+  //saveNotes(currentNotes);
 
-    //dunno why the fuck js wants you to use backticks if you wanna format shit but.. if it works.. it works. 🤷‍♀️
-    console.log(`Note ${selectedNote.id} has been updated`)
+  // Send updated note data to server
+  const data = {
+      id: id,
+      Contents: newContent
+  };
+
+  fetch('/savenote', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
 }
 
 //all this below is the function for the start of the desired animation, but because ive now spent 7 hours on this shit i cant be botherd to try and solve this fucking davinci code.
 function deleteNote({ id, noteElement }) {
-    const currentNotes = getNotes().filter((note) => note.id !== id);
-        saveNotes(currentNotes);
+  const currentNotes = getNotes().filter((note) => note.id !== id);
+  //saveNotes(currentNotes);
 
-        if (noteElement) {
-            noteElement.style.opacity = '0';
-            noteElement.addEventListener('transitionend', handleTransitionEnd);
+  if (noteElement) {
+      noteElement.style.opacity = '0';
+      noteElement.addEventListener('transitionend', handleTransitionEnd);
 
-            function handleTransitionEnd() {
-              // this functions sole purpose is to prevent the note fading away from instantly deleting itself, which in that case would make the animation useless and wasted effort.
-              noteElement.removeEventListener('transitionend', handleTransitionEnd);
-              notesContainer.removeChild(noteElement);
-            }
-            
-        }
+      function handleTransitionEnd() {
+          noteElement.removeEventListener('transitionend', handleTransitionEnd);
+          notesContainer.removeChild(noteElement);
+      }
+  }
+
+  // Send deleted note ID to server for deletion
+  const data = {
+      id: id
+  };
+
+  fetch('/deletenote', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
 }
   
 function updateSelectedNoteText() {
