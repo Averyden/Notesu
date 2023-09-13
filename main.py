@@ -58,6 +58,13 @@ def logout():
     session.pop('currentuser', None)
     return redirect('/landing')
 
+@app.route("/getnotes")
+def get_notes():
+    # Assuming you have a function in data.py to fetch the notes
+    notes = database.getNotesForUser(session['currentuser'])
+    print("Notes", notes)
+    return jsonify(notes)
+
 @app.route('/register_user', methods=['POST'])
 def register_user():
     pw = request.form['password']

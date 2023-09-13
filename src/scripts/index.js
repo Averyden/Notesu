@@ -41,12 +41,22 @@ setTimeout(() => {
 
 //
 
+function getNotes() {
+  return fetch('/getnotes')
+      .then(response => response.json())
+      .catch(error => console.error('Error:', error));
+}
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
-getNotes().forEach(note => {
-    const noteElement = createNoteElement(note.id, note.content, note.deadline)
-    notesContainer.insertBefore(noteElement, addButton)
+getNotes().then(notes => {
+  const selectedNote = notes.find(note => note.id === currentSelectedNote);
+ 
+  notes.forEach(note => {
+    const noteElement = createNoteElement(note.id, note.content, note.deadline);
+    notesContainer.insertBefore(noteElement, addButton);
+  });
 });
+
 
 
 addButton.addEventListener("click", () => addNote())
@@ -191,10 +201,16 @@ function toggleSidebar() {
     notesContainer.classList.toggle("app--sidebar-open")
 }
 
-function getNotes() {
-    console.log("Getting user notes..")
-    return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
-}
+
+
+getNotes().then(notes => console.log('Notes:', notes));
+
+
+//deprecating old function...
+// function getNotes() {
+//     console.log("Getting user notes..")
+//     return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
+// }
 
 function saveNotes(notes) {
     localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
@@ -308,11 +324,18 @@ function addNote() {
 }
 
 function updateNote(id, newContent) {
+  console.log(`Updating note ID: ${id}, New Content: ${newContent}`);
+
   const currentNotes = getNotes();
+  console.log("Current Notes:", currentNotes); // Check if currentNotes is correct
   const selectedNote = currentNotes.find((note) => note.id == id);
 
-  selectedNote.content = newContent;
-  //saveNotes(currentNotes);
+  if (selectedNote) {
+      selectedNote.content = newContent;
+      console.log(`Updating note ID: ${id}, New Content: ${newContent}`);
+  } else {
+      console.error(`Note with ID ${id} not found in currentNotes`);
+  }
 
   // Send updated note data to server
   const data = {

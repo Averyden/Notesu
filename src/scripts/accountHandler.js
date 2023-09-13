@@ -39,7 +39,7 @@ function showPopup(type) {
         emailForm.style.display = "block"
         confirmPass.style.display = "block"
 
-        emailForm.setAttribute("required", "required")
+        //emailForm.setAttribute("required", "required")
         confirmPass.setAttribute("required", "required")
 
 

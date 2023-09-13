@@ -34,14 +34,18 @@ class NotesuData():
         c.execute("INSERT INTO Notes (id, content, deadline, ownerID) VALUES (?, ?, ?, ?);", (noteID, None, None, ownerID))
         db.commit()
 
-
     def getNotesForUser(self, userID):
         c = self._get_db().cursor()
-        graphs = []
-        c.execute("""SELECT id, name FROM Notes WHERE ownerID = ?""", [userID])
-        for graph in c:
-            graphs.append(graph)
-        return graphs
+        notes = []
+        c.execute("""SELECT id, content, deadline FROM Notes WHERE ownerID = ?""", [userID])
+        for row in c.fetchall():
+            notes.append({
+                'id': row[0],
+                'content': row[1],
+                'deadline': row[2]
+            })
+        return notes
+
 
     def get_value_count(self, userid):
         c = self._get_db().cursor()
@@ -104,6 +108,14 @@ class NotesuData():
             res = False
         else:
             c.execute("INSERT INTO UserProfiles (username, password, email) VALUES (?,?,?)", (user,pw,email))
+            
+            # Get userID, so that notebook can utilize id
+            c.execute("SELECT id FROM UserProfiles WHERE username = ?", (user,))
+            user_id = c.fetchone()[0]
+
+            # Create a default notebook for the user
+            c.execute("INSERT INTO NoteBooks (name, ownerID) VALUES (?, ?)", ("default", user_id))
+
             db.commit()
             res = True
         return res
@@ -126,7 +138,6 @@ class NotesuData():
             return False
         return db_pw == pw
 
-
     def _create_db_tables(self):
         db = self._get_db()
 
@@ -145,7 +156,16 @@ class NotesuData():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 content TEXT,
                 deadline DATE,
-                ownerID INTEGER);""")
+                ownerID INTEGER,
+                noteBookID INTEGER);""")
+        except Exception as e:
+            print(e)
+
+        try:
+            c.execute("""CREATE TABLE IF NOT EXISTS NoteBooks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT,
+                ownerID INTEGER)""")
         except Exception as e:
             print(e)
 
