@@ -193,11 +193,11 @@ function toggleSidebar() {
 
 function getNotes() {
     console.log("Getting user notes..")
-    return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
+    return JSON.parse(localStorage.getItem("stickynotes-saveData") || "[]");
 }
 
 function saveNotes(notes) {
-    localStorage.setItem("stickynotes-notes", JSON.stringify(notes));
+    localStorage.setItem("stickynotes-saveData", JSON.stringify(notes));
 
 }
 
