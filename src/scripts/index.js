@@ -202,7 +202,7 @@ function saveNotes(notes) {
 }
 
 function configureNoteDeadline(id) {
-  const currentNotes = getNotes()
+  const currentNotes = getNotes() // TODO: figure out why it returns Uncaught "NS_ERROR_FILE_CORRUPTED"
   const selectedNote = currentNotes.filter(currentNotes => currentNotes.id == id)[0]
 
   
