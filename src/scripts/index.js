@@ -56,16 +56,20 @@ popupBtnCancel.addEventListener("click", () => cancelPrompt())
 //popupContainer.addEventListener("click", () => cancelPrompt());
 deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note"));
 
-/**
- * TODO: Find a way to check if the deadline has been exceeded, and when it is, the prompt should not question the users decision.
- */
 
 function promptDelete() {
   
-    const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
-    // we turn the message parameter into a variable, so that calling the function doesn't look as cluttered.
+  const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
+  const selectedNoteElement = document.getElementById(selectedNote.id);
+  if (selectedNoteElement.classList.contains("exceeded")) { // Check to see if the note has exceeded its deadline, if so, just delete lol.
+    deleteNote({
+      id: selectedNote.id,
+      noteElement: document.getElementById(selectedNote.id),
+    });
+  } else { // If deadline has yet to be exceeded, make sure the user is sure they want to delete the selected.
     const promptMessage = `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`
     introducePopup("delete-note-prompt", promptMessage) 
+  }
 
   /*  if (selectedNote) {
       const doDelete = confirm(`Are you sure you want to delete note: ${selectedNote.id} (${selectedNote.content})?`);
@@ -270,6 +274,8 @@ function createNoteElement(id, content, deadline) {
       if (deadlineDate < currentDate) {
         deadlineElement.classList.add("exceeded")
         element.classList.add("exceeded")
+        // eughhh this is gonna be so ugly bloated :(
+        div.classList.add("exceeded") // We also add it to the div itself, so that we can insta delete the note, as its exceed its deadline.
       }
     }
 
