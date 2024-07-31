@@ -1,4 +1,4 @@
-function introducePopup(type, message) {
+export function introducePopup(type, message) {
     const popupContent = document.getElementById("popupText");
     const popupTitle = document.getElementById("popupTitle")
   
@@ -98,7 +98,7 @@ function introducePopup(type, message) {
     popupContainer.classList.add("visible");
 }
 
-function cancelPrompt() {
+export function cancelPrompt() {
     popupContainer.classList.remove("visible");
 }
 
