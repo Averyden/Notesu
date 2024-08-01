@@ -44,7 +44,7 @@ function introducePopup(type, message) {
   }
 
   //Ensure message is -= null
-  popupContent.innerText = message !== null ? message: "Missing message parameter.";
+  popupContent.innerHTML = message !== null ? message: "Missing message parameter.";
 
   const { title, confirmText, onConfirm } = promptVariants[type];
   popupTitle.innerText = title;
