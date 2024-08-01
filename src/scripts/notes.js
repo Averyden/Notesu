@@ -24,6 +24,14 @@ function configureNoteDeadline(id) {
     saveNotes(currentNotes)
 }
 
+//? Unsure if function is needed, but its here just in case.
+function markNoteCompleted(id) {
+  const currentNotes = getNotes()
+  const selectedNote = currentNotes.filter(currentNotes => currentNotes.id === id)
+  selectedNote.classList.add("completed") //? Hopefully this saves?
+  //! it wont save, because the createNoteElement function wont remember it!!!!!
+}
+
 function createNoteElement(id, content, deadline) {
     const div = document.createElement("div");
     const element = document.createElement("textarea");
