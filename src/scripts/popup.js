@@ -109,7 +109,7 @@ function deadlineConfirm() {
     return;
   }
 
-  configureNoteDeadline(selectednote.id)
+  configureNoteDeadline(selectedNote.id)
   selectedNoteForConfig = null
   console.log("User configured note deadlne.")
   cancelPrompt()
