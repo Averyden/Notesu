@@ -13,6 +13,7 @@ const menuButton = document.querySelector(".hamburger")
 const sidebar = document.querySelector(".sidebar")
 const deleteButton = document.getElementById("deletenotebutton")
 const deadlineButton =  document.getElementById("configuredeadlinebutton")
+const completeButton = document.getElementById("marknoteascompleted")
 
 
 const popupContainer = document.getElementById("popupContainer")
@@ -55,7 +56,15 @@ deleteButton.addEventListener("click", () => promptDelete(currentSelectedNote))
 popupBtnCancel.addEventListener("click", () => cancelPrompt())
 //popupContainer.addEventListener("click", () => cancelPrompt());
 deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note"));
+completeButton.addEventListener("click", () => promptComplete(currentSelectedNote))
 
+
+//* We only use this function to fetch the details of the note so that it can be displayed on the popup.
+function promptComplete() {
+  const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
+  const promptMessage = `Are you sure you want to mark note: <b>${selectedNote.id}; ${selectedNote.content}</b> as completed?`
+  introducePopup("completion-prompt", promptMessage)
+}
 
 function promptDelete() {
   
