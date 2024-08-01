@@ -99,7 +99,7 @@ body {
     color: #ff0000
 }
 
-.note.completed {
+.note .note-text.completed {
     color: #a1ff8c;
 }
 
