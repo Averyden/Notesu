@@ -34,7 +34,11 @@ function markNoteCompleted(id) {
   const selectedNoteText = selectedNoteElement.querySelector(".note-text") // SO we can aply the green to it!
   selectedNoteElement.classList.add("completed") //? This is for the note itself, to save it... i think MAYBE.
   selectedNoteText.classList.add("completed")
-  //! it wont save, because the createNoteElement function wont remember it!!!!!
+ /**
+  * TODO: make the note be locked
+  * TODO: so that the user
+  * TODO: cant edit the note once its completed.
+  */
 }
 
 function createNoteElement(id, content, deadline) {
