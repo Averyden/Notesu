@@ -99,6 +99,10 @@ body {
     color: #ff0000
 }
 
+.note.completed {
+    color: #a1ff8c;
+}
+
 /*@keyframes note-move {
     from {
       transform: translate(var(--translate-x), var(--translate-y));
