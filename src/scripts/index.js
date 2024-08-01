@@ -76,7 +76,7 @@ function promptDelete() {
       noteElement: document.getElementById(selectedNote.id),
     });
   } else { // If deadline has yet to be exceeded, make sure the user is sure they want to delete the selected.
-    const promptMessage = `Are you sure you want to delete note: ${selectedNote.id}; "${selectedNote.content}"?`
+    const promptMessage = `Are you sure you want to delete note: <b>${selectedNote.id}; "${selectedNote.content}"</b>?`
     introducePopup("delete-note-prompt", promptMessage) 
   }
 
