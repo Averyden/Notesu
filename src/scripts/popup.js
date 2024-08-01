@@ -98,7 +98,8 @@ function completeNote() {
   }
   markNoteCompleted(selectedNote.id)
   selectedNoteForConfig = null
-  console.log(`User marked note ${selectednote.id} for completion.`)
+  console.log(`User marked note ${selectedNote.id} for completion.`)
+  cancelPrompt() 
 }
 
 function deadlineConfirm() {
