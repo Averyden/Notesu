@@ -1,13 +1,13 @@
-export function getNotes() {
+function getNotes() {
     console.log("Getting user notes..")
     return JSON.parse(localStorage.getItem("stickynotes-saveData") || "[]");
 }
 
-export function saveNotes(notes) {
+function saveNotes(notes) {
     localStorage.setItem("stickynotes-saveData", JSON.stringify(notes));
 }
 
-export function configureNoteDeadline(id) {
+function configureNoteDeadline(id) {
     const currentNotes = getNotes() 
     const selectedNote = currentNotes.filter(currentNotes => currentNotes.id == id)[0]
   
@@ -24,7 +24,7 @@ export function configureNoteDeadline(id) {
     saveNotes(currentNotes)
 }
 
-export function createNoteElement(id, content, deadline) {
+function createNoteElement(id, content, deadline) {
     const div = document.createElement("div");
     const element = document.createElement("textarea");
     const deadlineElement = document.createElement("span");
@@ -84,7 +84,7 @@ export function createNoteElement(id, content, deadline) {
 }
 
 
-export function addNote() {
+function addNote() {
     const currentNotes = getNotes()
     const noteObject = {
         id: Math.floor(Math.random() * 10000),
@@ -98,7 +98,7 @@ export function addNote() {
     saveNotes(currentNotes)
 }
 
-export function updateNote(id, newContent) {
+function updateNote(id, newContent) {
     console.log("Updating note...")
     const currentNotes = getNotes()
     const selectedNote = currentNotes.filter(currentNotes => currentNotes.id == id)[0]
@@ -115,7 +115,7 @@ export function updateNote(id, newContent) {
 *! This is the function that should still hve the rest of the desired implementation of the deletion animation
 *? you know... the one that swwops the note up too.
 */
-export function deleteNote({ id, noteElement }) {
+function deleteNote({ id, noteElement }) {
     const currentNotes = getNotes().filter((note) => note.id !== id);
         saveNotes(currentNotes);
 
@@ -132,7 +132,7 @@ export function deleteNote({ id, noteElement }) {
         }
 }
   
-export function updateSelectedNoteText() {
+function updateSelectedNoteText() {
     const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
 
     if (selectedNote) {

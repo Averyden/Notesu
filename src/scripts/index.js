@@ -1,7 +1,5 @@
 
-import { getNotes, saveNotes, configureNoteDeadline, createNoteElement, addNote, updateNote, deleteNote, updateSelectedNoteText} from "./notes"
-import { toggleSidebar } from "./sidebar"
-import { introducePopup, cancelPrompt } from "./popup"
+
 //gotta figure out a way for the selectedNoteForConfig variable to be able to be deselected if the user clicks off the note but not on any of the config buttons in the sidebar.
 
 const notesContainer = document.getElementById("app")
