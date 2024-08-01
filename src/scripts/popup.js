@@ -23,6 +23,12 @@ function introducePopup(type, message) {
       onConfirm: deadlineConfirm
     },
 
+    "completion-prompt": {
+      title: "Mark note as completed",
+      confirmText: "Complete",
+      onConfirm: completeNote
+    },
+
     //!PURELY FOR DEBUG
     "error": {
       title: "Error in code",
@@ -82,6 +88,17 @@ function deleteNoteConfirm() {
   selectedNoteForConfig = null
   updateSelectedNoteText()
   cancelPrompt() 
+}
+
+function completeNote() {
+  const selectedNote = getNotes().find(note => note.id === selectedNoteForConfig)
+  if (!selectedNote) {
+    console.error("No note selected or note not found.")
+    return;
+  }
+  markNoteCompleted(selectedNote.id)
+  selectedNoteForConfig = null
+  console.log(`User marked note ${selectednote.id} for completion.`)
 }
 
 function deadlineConfirm() {
