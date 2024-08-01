@@ -26,9 +26,14 @@ function configureNoteDeadline(id) {
 
 //? Unsure if function is needed, but its here just in case.
 function markNoteCompleted(id) {
+  console.log(`received note id: ${id}`)
   const currentNotes = getNotes()
-  const selectedNote = currentNotes.filter(currentNotes => currentNotes.id === id)
-  selectedNote.classList.add("completed") //? Hopefully this saves?
+  const selectedNote = currentNotes.find(currentNotes => currentNotes.id === id)
+  const selectedNoteElement = document.getElementById(selectedNote.id);
+
+  const selectedNoteText = selectedNoteElement.querySelector(".note-text") // SO we can aply the green to it!
+  selectedNoteElement.classList.add("completed") //? This is for the note itself, to save it... i think MAYBE.
+  selectedNoteText.classList.add("completed")
   //! it wont save, because the createNoteElement function wont remember it!!!!!
 }
 
