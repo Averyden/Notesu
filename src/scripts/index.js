@@ -94,13 +94,6 @@ function promptDelete() {
     }*/
 }
   
-
-
-
-
-
-
-
 //this below is just for deletion of notes with no animation
 // function deleteNote({ id, noteElement }) {
 //     const currentNotes = getNotes().filter((note) => note.id !== id);
