@@ -37,9 +37,11 @@ let selectedNoteForConfig = null
  * TODO: Fix stupid function!
  */
 popupContainer.style.visibility = "hidden";
+alertContainer.style.visibility = "hidden";
 
 setTimeout(() => {
   popupContainer.style.visibility = "visible";
+  alertContainer.style.visibility = "visible";
 }, 300);
 
 //
@@ -54,6 +56,11 @@ getNotes().forEach(note => {
 
 testButton.addEventListener("click", () => toggleAlert())
 function toggleAlert() {
+  if (alertContainer.style.visibility === "hidden") {
+    alertContainer.style.visibility === "visible"
+  } else {
+    alertContainer.style.visibility === "hidden"
+  }
 
 }
 
