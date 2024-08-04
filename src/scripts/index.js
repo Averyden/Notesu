@@ -6,7 +6,6 @@ const notesContainer = document.getElementById("app")
 const addButton = notesContainer.querySelector(".add-note")
 const saveUpdateButton = document.querySelector(".save-update")
 const selectedNoteText = document.getElementById("sidebar-text")
-const testButton = notesContainer.querySelector(".TestAlert")
 
 
 //get variables for sidebar buttons
@@ -16,7 +15,6 @@ const deleteButton = document.getElementById("deletenotebutton")
 const deadlineButton =  document.getElementById("configuredeadlinebutton")
 const completeButton = document.getElementById("marknoteascompleted")
 
-const alertContainer = document.getElementById("alertContainer")
 
 const popupContainer = document.getElementById("popupContainer")
 //const popupTitle = document.getElementById("popupTitle");
@@ -37,11 +35,9 @@ let selectedNoteForConfig = null
  * TODO: Fix stupid function!
  */
 popupContainer.style.visibility = "hidden";
-alertContainer.style.visibility = "hidden";
 
 setTimeout(() => {
   popupContainer.style.visibility = "visible";
-  alertContainer.style.visibility = "visible";
 }, 300);
 
 //
@@ -53,16 +49,6 @@ getNotes().forEach(note => {
     notesContainer.insertBefore(noteElement, addButton)
 });
 
-
-testButton.addEventListener("click", () => toggleAlert())
-function toggleAlert() {
-  if (alertContainer.style.visibility === "hidden") {
-    alertContainer.style.visibility === "visible"
-  } else {
-    alertContainer.style.visibility === "hidden"
-  }
-
-}
 
 addButton.addEventListener("click", () => addNote())
 menuButton.addEventListener("click", () => toggleSidebar())
