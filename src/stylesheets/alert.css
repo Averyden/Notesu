@@ -1,0 +1,145 @@
+.popup-container {
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+
+    transition: background-color .45s ease-in-out;
+    z-index: 7;
+}
+
+.popup-container:not(.visible) {
+    pointer-events: none;
+}
+
+.popup-container.visible {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.popup-container .popup {
+    pointer-events: all;
+    animation: slide-up .3s ease forwards;
+}
+
+.popup-container.visible .popup {
+    animation: slide-down .3s ease forwards;
+}
+
+@keyframes shadow-appear {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(0);
+    }
+    95% {
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(-100%);
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+@keyframes slide-down {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: visible;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.popup {
+    margin: auto;
+    position: relative;
+    background: #FFF;
+    border-radius: 10px;
+    width: 35%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: slide-down 0.3s ease forwards;
+}
+  
+.popup .popup-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+}
+  
+.popup .popup-message {
+    font-family: 'Roboto', sans-serif;
+    color: #2e2e2e;
+    font-size: 15px;
+    padding: 16px;
+    text-align: center;
+}
+
+.popup .popup-textbox {
+    font-family: 'Roboto', sans-serif;
+    color: #2e2e2e;
+    background-color: #B0B0B0;
+    font-size: 15px;
+    padding: 16px;
+    text-align: center;
+    border-radius: 15px;
+    width: 70%;
+    height: 7%;
+    resize: none;
+    border: none;
+    overflow: hidden;
+}
+  
+.popup-buttons {
+    display: flex;
+    padding: 5px;
+}
+
+.popup-buttons #btn-cancel,
+.popup-buttons #btn-confirm {
+    margin: 8px;
+    min-width: 75px;
+    width: auto;
+    height: 30px;
+    border: none;
+    border-radius: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: auto;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.popup-buttons #btn-confirm {
+    background-color: #f13ce8;
+    color: #FFF;
+    transition: background 0.3s;
+}
+
+.popup-buttons #btn-confirm:hover {
+    background: #d823cf;
+}
