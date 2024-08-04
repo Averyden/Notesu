@@ -30,11 +30,39 @@ function markNoteCompleted(id) {
   const currentNotes = getNotes()
   const selectedNote = currentNotes.find(currentNotes => currentNotes.id === id)
   const selectedNoteElement = document.getElementById(selectedNote.id);
+  const completeDateElement = document.getElementById(selectedNote.id).querySelector(".note-completed-date");
+  const deadlineElement = document.getElementById(selectedNote.id).querySelector(".note-deadline");
 
   const selectedNoteText = selectedNoteElement.querySelector(".note-text") // SO we can aply the green to it!
   selectedNoteElement.classList.add("completed") //? This is for the note itself, to save it... i think MAYBE.
   selectedNoteText.classList.add("completed")
- /**
+
+  //* Fetching current date, so that the note has a "completion date"
+  const currentDate = new Date()
+
+  //* Since the Date() function fetches time as well, we collect year month and day.
+
+  const year = currentDate.getFullYear()
+  const month = String(currentDate.getMonth()+1).padStart(2,'0') //* We add one, for months are 0 indexed.
+  const day = String(currentDate.getDate()).padStart(2, '0')
+
+  const finalDate = `${day}/${month}/${year}`
+
+  console.log(`Set completed date to: ${finalDate}..`)
+  if (selectedNote.deadline === undefined) {
+    completeDateElement.innerText = `Completed: ${finalDate}`
+    completeDateElement.style.bottom = "0px"
+    deadlineElement.style.bottom = "20px"
+    deadlineElement.innerText = "No deadline was set."
+  } else {
+    //* Save the old deadline
+    const savedDeadline = deadlineElement.innerText
+    completeDateElement.innerText = `Completed: ${finalDate}`
+    completeDateElement.style.bottom = "0px"
+    deadlineElement.style.bottom = "20px"
+    deadlineElement.innerText = `Deadline: ${savedDeadline}`
+  }
+  /**
   * TODO: make the note be locked
   * TODO: so that the user
   * TODO: cant edit the note once its completed.
@@ -45,9 +73,11 @@ function createNoteElement(id, content, deadline) {
     const div = document.createElement("div");
     const element = document.createElement("textarea");
     const deadlineElement = document.createElement("span");
+    const completeDateElement = document.createElement("span") //! this will only be displayed once a note is completed.
 
     div.appendChild(element)
     div.appendChild(deadlineElement)
+    div.appendChild(completeDateElement)
     deadlineElement.innerText = deadline || "No deadline has been set." 
 
     div.id = id;
@@ -55,6 +85,7 @@ function createNoteElement(id, content, deadline) {
     div.classList.add("note")
     element.classList.add("note-text")
     deadlineElement.classList.add("note-deadline")
+    completeDateElement.classList.add("note-completed-date")
     element.value = content;
     element.placeholder = "Empty note"
 
