@@ -12,6 +12,7 @@
     <link rel="icon" href="../assets/icon.png">
     <link rel="stylesheet" href="./stylesheets/style.css">
     <link rel="stylesheet" href="./stylesheets/popup.css">
+    <link rel="stylesheet" href="./stylesheets/alert.css">
     <script src="./scripts/notes.js" defer></script>
     <script src="./scripts/popup.js" defer></script>
     <script src="./scripts/sidebar.js" defer></script>
@@ -67,11 +68,22 @@
             </div>
         </div>
     </div>
+
+    <!--this is going to be a simple little alert that appears at the bottom of the screen-->
+    <div class="alert-container" id="alertContainer">
+        <div class="alert">
+            <!-- ? Potentially add an image???? -->
+            <span class="alert-text" id="alertText"></span>
+            <button id="btn-confirm">Confirm</button>
+        </div>
+    </div>
+
     
     
     <div id="app">
         <!--We quite literally only need this for it to work, our add-note button will run a fucntion through our js document which will clone the note element-->
         <button class="add-note" type="button">+</button>
+        <button class="TestAlert" type="button">Test alert</button>
     </div>
 </body>
 
