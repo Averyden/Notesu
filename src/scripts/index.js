@@ -6,6 +6,7 @@ const notesContainer = document.getElementById("app")
 const addButton = notesContainer.querySelector(".add-note")
 const saveUpdateButton = document.querySelector(".save-update")
 const selectedNoteText = document.getElementById("sidebar-text")
+const testButton = notesContainer.querySelector(".TestAlert")
 
 
 //get variables for sidebar buttons
