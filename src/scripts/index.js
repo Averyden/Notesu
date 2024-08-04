@@ -16,6 +16,7 @@ const deleteButton = document.getElementById("deletenotebutton")
 const deadlineButton =  document.getElementById("configuredeadlinebutton")
 const completeButton = document.getElementById("marknoteascompleted")
 
+const alertContainer = document.getElementById("alertContainer")
 
 const popupContainer = document.getElementById("popupContainer")
 //const popupTitle = document.getElementById("popupTitle");
@@ -50,6 +51,11 @@ getNotes().forEach(note => {
     notesContainer.insertBefore(noteElement, addButton)
 });
 
+
+testButton.addEventListener("click", () => toggleAlert())
+function toggleAlert() {
+
+}
 
 addButton.addEventListener("click", () => addNote())
 menuButton.addEventListener("click", () => toggleSidebar())
