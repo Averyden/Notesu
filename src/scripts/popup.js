@@ -1,4 +1,11 @@
 
+
+/**
+ * TODO: make a smaller popup, that comes from below and is stuck there, letting the user know when they have done something, for example like, completing a note.
+ * Just in case they didnt realize what they did
+ * 
+ */
+
 function introducePopup(type, message) {
   const popupContent = document.getElementById("popupText");
   const popupTitle = document.getElementById("popupTitle");
