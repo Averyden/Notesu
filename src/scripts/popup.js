@@ -36,7 +36,7 @@ function introducePopup(type, message) {
       onConfirm: completeNote
     },
 
-    //!PURELY FOR DEBUG
+    //!Failsafe if something goes wrong.
     "error": {
       title: "Error in code",
       confirmText: "OK",
