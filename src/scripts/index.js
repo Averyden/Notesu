@@ -14,6 +14,7 @@ const sidebar = document.querySelector(".sidebar")
 const deleteButton = document.getElementById("deletenotebutton")
 const deadlineButton =  document.getElementById("configuredeadlinebutton")
 const completeButton = document.getElementById("marknoteascompleted")
+const colorButton = document.getElementById("changenotecolor")
 
 
 const popupContainer = document.getElementById("popupContainer")
@@ -57,6 +58,7 @@ popupBtnCancel.addEventListener("click", () => cancelPrompt())
 //popupContainer.addEventListener("click", () => cancelPrompt());
 deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note"));
 completeButton.addEventListener("click", () => promptComplete(currentSelectedNote))
+colorButton.addEventListener("click", () => colorNote(currentSelectedNote)) //! Placeholder function to test changing the notes color.
 
 
 //* We only use this function to fetch the details of the note so that it can be displayed on the popup.
