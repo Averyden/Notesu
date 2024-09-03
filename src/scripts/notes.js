@@ -29,6 +29,17 @@ TODO: make it so that its actually saved that the note is completed
 TODO: also move it away from the whole container, and prompt the user that it has been moved 
 ! A CUSTOM BOTTOM PROMPT IS NEEDED TO BE MADE FOR THAT FIRST. THAT SHOULD BE A PRIORITY (I think. 💀)
 */
+
+function thing(id) {
+  console.log(`Receive request to change the color of note: ${id}`)
+  const currentNotes = getNotes()
+  const selectedNote = currentNotes.find(currentNotes => currentNotes.id === id)
+  const selectedNoteElement = document.getElementById(selectedNote.id)
+  
+  selectedNoteElement.style.backgroundColor = "#95f597"
+  console.log("now the note should be greeeeeeeeeeeeeeeeeen!!!!!")
+}
+
 //? Unsure if function is needed, but its here just in case.
 function markNoteCompleted(id) {
   console.log(`received note id: ${id}`)
