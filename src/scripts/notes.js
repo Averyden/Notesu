@@ -30,7 +30,7 @@ TODO: also move it away from the whole container, and prompt the user that it ha
 ! A CUSTOM BOTTOM PROMPT IS NEEDED TO BE MADE FOR THAT FIRST. THAT SHOULD BE A PRIORITY (I think. 💀)
 */
 
-function colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle(id, selectedColor) {
+function colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle(id) {
   console.log(`Receive request to change the color of note: ${id}`)
   const currentNotes = getNotes()
   const selectedNote = currentNotes.find(currentNotes => currentNotes.id === id)
