@@ -69,7 +69,7 @@ function promptComplete() {
 }
 
 function colorNote() {
-  introducePopup("confirmation-prompt", "COLOR_TEST")
+  introducePopup("color-prompt", "COLOR_TEST")
 }
 
 function promptDelete() {
