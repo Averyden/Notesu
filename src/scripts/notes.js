@@ -105,6 +105,7 @@ function createNoteElement(id, content, deadline) {
     div.id = id;
 
     div.classList.add("note")
+    div.classList.add("color")
     element.classList.add("note-text")
     deadlineElement.classList.add("note-deadline")
     completeDateElement.classList.add("note-completed-date")
@@ -136,6 +137,16 @@ function createNoteElement(id, content, deadline) {
     div.addEventListener("mousedown", () => {
       clearTimeout(blurTimeout);
     })
+
+    // Check for saved color
+    //? While making this I forgot to figure out how id actually save the color, because how would it receive what color the note was when last save occured?????
+    if (div.classList.contains("color")) {
+      div.classList.remove("color")
+      div.style["background-color"] = "#fff"
+      div.classList.add("color:default")
+    } else {
+      console.log("bah")
+    }
 
     //check if deadline has been exceeded, and if it is, then add the "exceeded" class which makes the text red.
     if (deadline) {
