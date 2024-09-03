@@ -94,7 +94,7 @@ function colorNoteForward() {
     return;
   }
 
-  colorNote(selectedNote.id)
+  colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle(selectedNote.id)
   cancelPrompt()
 
 }
