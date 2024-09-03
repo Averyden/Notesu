@@ -58,7 +58,7 @@ popupBtnCancel.addEventListener("click", () => cancelPrompt())
 //popupContainer.addEventListener("click", () => cancelPrompt());
 deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note"));
 completeButton.addEventListener("click", () => promptComplete(currentSelectedNote))
-colorButton.addEventListener("click", () => colorNote(currentSelectedNote)) //! Placeholder function to test changing the notes color.
+colorButton.addEventListener("click", () => colorNote(currentSelectedNote))
 
 
 //* We only use this function to fetch the details of the note so that it can be displayed on the popup.
