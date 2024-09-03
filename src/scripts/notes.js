@@ -30,6 +30,12 @@ TODO: also move it away from the whole container, and prompt the user that it ha
 ! A CUSTOM BOTTOM PROMPT IS NEEDED TO BE MADE FOR THAT FIRST. THAT SHOULD BE A PRIORITY (I think. 💀)
 */
 
+
+/*
+TODO: Apply a check, so that the text color of the note is also changed if the note color gets a bittt too close to the text color
+TODO: We don't want the text to be unreadable because of no color
+TODO: Maybe make it apply an outline?
+*/
 function colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle(id) {
   console.log(`Receive request to change the color of note: ${id}`)
   const currentNotes = getNotes()
