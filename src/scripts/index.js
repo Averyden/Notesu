@@ -68,6 +68,11 @@ function promptComplete() {
   introducePopup("completion-prompt", promptMessage)
 }
 
+function colorNote() {
+  const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
+  introducePopup("confirmation-prompt", "COLOR_TEST")
+}
+
 function promptDelete() {
   
   const selectedNote = getNotes().find((note) => note.id === currentSelectedNote);
