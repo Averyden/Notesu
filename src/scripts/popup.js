@@ -20,7 +20,8 @@ function introducePopup(type, message) {
     "confirmation-prompt": {
       title: "Confirmation",
       confirmText: "Confirm",
-      onConfirm: cancelPrompt //* Currently not coded in anything that needs to be confirmed.
+      onConfirm: cancelPrompt //! For now this is coded to test the color changing, I still need to figure out a way for the onConfirm option to be changed dynamically... IF that is even possible to begin with.
+      //* Currently not coded in anything that needs to be confirmed.
       //? Maybe for a future account system to make the user confirm changing their user info? or maybe even just confirming they are still at their computer.
     },
 
