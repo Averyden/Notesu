@@ -94,7 +94,7 @@ function colorNoteForward() {
     return;
   }
 
-  thing(selectedNote.id)
+  colorNote(selectedNote.id)
 
 }
 
