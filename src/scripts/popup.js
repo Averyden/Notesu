@@ -28,7 +28,7 @@ function introducePopup(type, message) {
     "color-prompt": {
       title: "Change note color",
       confirmText: "Confirm changes",
-      onConfirm: colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle
+      onConfirm: colorNoteForward
     },
 
     "deadline-prompt": {
@@ -43,7 +43,7 @@ function introducePopup(type, message) {
       onConfirm: completeNote
     },
 
-    //!Failsafe if something goes wrong.
+    //! Failsafe if something goes wrong.
     "error": {
       title: "Error in code",
       confirmText: "OK",
@@ -106,6 +106,7 @@ function colorNoteForward() {
     return;
   }
 
+  console.log(`bahhh: ${selectedNote.id}`)
   colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle(selectedNote.id)
   cancelPrompt()
 
