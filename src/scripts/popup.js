@@ -25,7 +25,7 @@ function introducePopup(type, message) {
       //? Maybe for a future account system to make the user confirm changing their user info? or maybe even just confirming they are still at their computer.
     },
 
-    "color-Prompt": {
+    "color-prompt": {
       title: "Change note color",
       confirmText: "Confirm changes",
       onConfirm: colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle
