@@ -68,8 +68,10 @@ function promptComplete() {
   introducePopup("completion-prompt", promptMessage)
 }
 
-function colorNote() { //? Might not be needed?
-  introducePopup("color-prompt", "COLOR_TEST")
+function colorNote() {
+  const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
+  const promptMessage = `Pick a color for note: <b>${selectedNote.id}; ${selectedNote.content}</b>`
+  introducePopup("color-prompt", promptMessage)
 }
 
 function promptDelete() {
