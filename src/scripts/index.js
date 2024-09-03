@@ -23,6 +23,7 @@ const popupContainer = document.getElementById("popupContainer")
 const popupBtnCancel = document.getElementById("btn-cancel")
 const popupBtnConfirm = document.getElementById("btn-confirm")
 const popupTextArea = document.getElementById("popupTextArea")
+const popupColorPicker = document.getElementById("popupColorSlct")
 popupTextArea.min = new Date().toLocaleDateString('en-us')
 
 //const delNoteSound = "../"
