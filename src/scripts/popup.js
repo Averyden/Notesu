@@ -95,6 +95,7 @@ function colorNoteForward() {
   }
 
   colorNote(selectedNote.id)
+  cancelPrompt()
 
 }
 
