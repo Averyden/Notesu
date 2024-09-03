@@ -35,9 +35,9 @@ function colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHand
   const currentNotes = getNotes()
   const selectedNote = currentNotes.find(currentNotes => currentNotes.id === id)
   const selectedNoteElement = document.getElementById(selectedNote.id)
+  const colorValue = document.getElementById("popupColorSlct")
   
-  selectedNoteElement.style["background-color"] = "#95f597"
-  console.log("now the note should be greeeeeeeeeeeeeeeeeen!!!!!")
+  selectedNoteElement.style["background-color"] = colorValue.value
 }
 
 //? Unsure if function is needed, but its here just in case.
