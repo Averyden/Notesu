@@ -28,7 +28,7 @@ function introducePopup(type, message) {
     "color-Prompt": {
       title: "Change note color",
       confirmText: "Confirm changes",
-      onConfirm: sendNoteColor
+      onConfirm: colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle
     },
 
     "deadline-prompt": {
