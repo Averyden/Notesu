@@ -20,7 +20,7 @@ function introducePopup(type, message) {
     "confirmation-prompt": {
       title: "Confirmation",
       confirmText: "Confirm",
-      onConfirm: cancelPrompt //! For now this is coded to test the color changing, I still need to figure out a way for the onConfirm option to be changed dynamically... IF that is even possible to begin with.
+      onConfirm: colorNoteForward //! For now this is coded to test the color changing, I still need to figure out a way for the onConfirm option to be changed dynamically... IF that is even possible to begin with.
       //* Currently not coded in anything that needs to be confirmed.
       //? Maybe for a future account system to make the user confirm changing their user info? or maybe even just confirming they are still at their computer.
     },
@@ -79,6 +79,23 @@ function introducePopup(type, message) {
 
   //Show popup
   popupContainer.classList.add("visible")
+}
+/**
+ *!    Temporary note color function
+ *!    Either delete or rewrite when finished.
+*/
+
+function colorNoteForward() {
+  // Error finding and making sure note exists.
+  console.log("AAAAAAAAAAAAa")
+  const selectedNote = getNotes().find(note => note.id === selectedNoteForConfig)
+  if (!selectedNote) {
+    console.error("No note selected or note not found.")
+    return;
+  }
+
+  thing(selectedNote.id)
+
 }
 
 function deleteNoteConfirm() {
