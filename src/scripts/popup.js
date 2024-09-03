@@ -72,6 +72,12 @@ function introducePopup(type, message) {
     popupTextArea.style.display = "none"
   }
 
+  if (type === 'color-prompt') {
+    popupColorPicker.style.display = "inline-block"
+  } else {
+    popupColorPicker.style.display = "none"
+  }
+
   if (type !== "error") {
     popupBtnCancel.style.display = "inline-block"
   } else {
