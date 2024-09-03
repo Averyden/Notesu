@@ -68,7 +68,7 @@ function promptComplete() {
   introducePopup("completion-prompt", promptMessage)
 }
 
-function colorNote() {
+function colorNote() { //? Might not be needed?
   introducePopup("color-prompt", "COLOR_TEST")
 }
 
