@@ -119,7 +119,7 @@ function createNoteElement(id, content, deadline, completed=false, color) {
 
     let blurTimeout;
 
-    if (completed) { // Show it as completed if its found as true 
+    if (completed === true) { // Show it as completed if its found as true 
       //! Should later be changed to just moving it away to its seperate tab.
       div.classList.add("completed")
       element.classList.add("completed")
@@ -178,7 +178,7 @@ function addNote() {
         color: "#fff" 
     };
 
-    const noteElement = createNoteElement(noteObject.id, noteObject.content)
+    const noteElement = createNoteElement(noteObject.id, noteObject.content, noteObject.completed, noteObject.color)
     notesContainer.insertBefore(noteElement, addButton)
 
     currentNotes.push(noteObject)
