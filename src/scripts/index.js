@@ -47,7 +47,7 @@ setTimeout(() => {
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
 getNotes().forEach(note => {
-    const noteElement = createNoteElement(note.id, note.content, note.deadline)
+    const noteElement = createNoteElement(note.id, note.content, note.deadline, note.color)
     notesContainer.insertBefore(noteElement, addButton)
 });
 
