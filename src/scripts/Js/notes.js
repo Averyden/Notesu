@@ -1,3 +1,6 @@
+//! This code purely now exists for archival reasons as I am refactoring to typescript.
+//! I will be using this to compare how the code functioned up until now.
+
 function getNotes() {
     console.log("Getting user notes..")
     return JSON.parse(localStorage.getItem("stickynotes-saveData") || "[]");

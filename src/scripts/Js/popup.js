@@ -1,5 +1,8 @@
 
 
+//! This code purely now exists for archival reasons as I am refactoring to typescript.
+//! I will be using this to compare how the code functioned up until now.
+
 /**
  * TODO: make a smaller popup, that comes from below and is stuck there, letting the user know when they have done something, for example like, completing a note.
  * Just in case they didnt realize what they did

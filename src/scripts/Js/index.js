@@ -1,5 +1,6 @@
 
-
+//! This code purely now exists for archival reasons as I am refactoring to typescript.
+//! I will be using this to compare how the code functioned up until now.
 //gotta figure out a way for the selectedNoteForConfig variable to be able to be deselected if the user clicks off the note but not on any of the config buttons in the sidebar.
 
 const notesContainer = document.getElementById("app")
