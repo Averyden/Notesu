@@ -45,6 +45,7 @@ function colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHand
 
   selectedNote.color = colorValue.value
   
+  
   selectedNoteElement.style["background-color"] = colorValue.value
   saveNotes(currentNotes)
 }
@@ -96,13 +97,14 @@ function markNoteCompleted(id) {
   */
 }
 
-function createNoteElement(id, content, deadline, completed=false, color) {
+function createNoteElement(id, content, deadline, color, completed=false) {
     const div = document.createElement("div");
     const element = document.createElement("textarea");
     const deadlineElement = document.createElement("span");
     const completeDateElement = document.createElement("span") //! this will only be displayed once a note is completed.
 
     div.appendChild(element)
+    div.style.backgroundColor = color
     div.appendChild(deadlineElement)
     div.appendChild(completeDateElement)
     deadlineElement.innerText = deadline || "No deadline has been set." 
@@ -170,19 +172,21 @@ function createNoteElement(id, content, deadline, completed=false, color) {
 
 
 function addNote() {
-    const currentNotes = getNotes()
-    const noteObject = {
-        id: Math.floor(Math.random() * 10000),
-        content: "",
-        completed: false, //* Set default values, to be configured later.
-        color: "#fff" 
-    };
 
-    const noteElement = createNoteElement(noteObject.id, noteObject.content, noteObject.completed, noteObject.color)
-    notesContainer.insertBefore(noteElement, addButton)
+  const currentNotes = getNotes()
+  const noteObject = {
+      id: Math.floor(Math.random() * 10000),
+      content: "",
+      completed: false, //* Set default values, to be configured later.
+      color: "#fff" 
+  };
 
-    currentNotes.push(noteObject)
-    saveNotes(currentNotes)
+  const noteElement = createNoteElement(noteObject.id, noteObject.content, noteObject.completed, noteObject.color)
+  console.log(`COLAAAAA: ${noteObject.color}`)
+  notesContainer.insertBefore(noteElement, addButton)
+
+  currentNotes.push(noteObject)
+  saveNotes(currentNotes)
 }
 
 function updateNote(id, newContent) {
