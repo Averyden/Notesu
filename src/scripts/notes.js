@@ -21,7 +21,6 @@ function configureNoteDeadline(id) {
     deadlineElement.innerText = deadlineValue;
   
     // selectedNote.content = newContent
-    saveNotes(currentNotes)
 }
 
 /*
@@ -29,23 +28,46 @@ TODO: make it so that its actually saved that the note is completed
 TODO: also move it away from the whole container, and prompt the user that it has been moved 
 ! A CUSTOM BOTTOM PROMPT IS NEEDED TO BE MADE FOR THAT FIRST. THAT SHOULD BE A PRIORITY (I think. 💀)
 */
-//? Unsure if function is needed, but its here just in case.
-function markNoteCompleted(id) {
-  console.log(`received note id: ${id}`)
+
+
+/*
+TODO: Apply a check, so that the text color of the note is also changed if the note color gets a bittt too close to the text color
+TODO: We don't want the text to be unreadable because of no color
+TODO: Maybe make it apply an outline?
+*/
+function colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle(id) {
+  console.log(`Receive request to change the color of note: ${id}`)
   const currentNotes = getNotes()
   const selectedNote = currentNotes.find(currentNotes => currentNotes.id === id)
-  const selectedNoteElement = document.getElementById(selectedNote.id);
-  const completeDateElement = document.getElementById(selectedNote.id).querySelector(".note-completed-date");
-  const deadlineElement = document.getElementById(selectedNote.id).querySelector(".note-deadline");
+  const selectedNoteElement = document.getElementById(selectedNote.id)
+  const colorValue = document.getElementById("popupColorSlct")
 
-  const selectedNoteText = selectedNoteElement.querySelector(".note-text") // SO we can aply the green to it!
-  selectedNoteElement.classList.add("completed") //? This is for the note itself, to save it... i think MAYBE.
-  selectedNoteText.classList.add("completed")
+  selectedNote.color = colorValue.value
+  
+  
+  selectedNoteElement.style["background-color"] = colorValue.value
+  saveNotes(currentNotes)
+}
+
+
+//? Unsure if function is needed, but its here just in case.
+function markNoteCompleted(id) {
+  console.log(`Received note id: ${id}`);
+  const currentNotes = getNotes();
+  const selectedNote = currentNotes.find(note => note.id === id);
+  const selectedNoteElement = document.getElementById(selectedNote.id);
+  const completeDateElement = selectedNoteElement.querySelector(".note-completed-date");
+  const deadlineElement = selectedNoteElement.querySelector(".note-deadline");
+  const selectedNoteText = selectedNoteElement.querySelector(".note-text");
+
+  selectedNote.completed = true;  // Mark note as completed
+  selectedNoteElement.classList.add("completed");
+  selectedNoteText.classList.add("completed");
 
   //* Fetching current date, so that the note has a "completion date"
   const currentDate = new Date()
 
-  //* Since the Date() function fetches time as well, we collect year month and day.
+  //* Since the Date() function fetches time as well, we collect only the year, month, and day.
 
   const year = currentDate.getFullYear()
   const month = String(currentDate.getMonth()+1).padStart(2,'0') //* We add one, for months are 0 indexed.
@@ -53,20 +75,18 @@ function markNoteCompleted(id) {
 
   const finalDate = `${day}/${month}/${year}`
 
-  console.log(`Set completed date to: ${finalDate}..`)
-  if (selectedNote.deadline === undefined) {
-    completeDateElement.innerText = `Completed: ${finalDate}`
-    completeDateElement.style.bottom = "0px"
-    deadlineElement.style.bottom = "20px"
-    deadlineElement.innerText = "No deadline was set."
+  console.log(`Set completed date to: ${finalDate}..`);
+  completeDateElement.innerText = `Completed: ${finalDate}`;
+  completeDateElement.style.bottom = "0px";
+  deadlineElement.style.bottom = "20px";
+
+  if (!selectedNote.deadline) {
+      deadlineElement.innerText = "No deadline was set.";
   } else {
-    //* Save the old deadline
-    const savedDeadline = deadlineElement.innerText
-    completeDateElement.innerText = `Completed: ${finalDate}`
-    completeDateElement.style.bottom = "0px"
-    deadlineElement.style.bottom = "20px"
-    deadlineElement.innerText = `Deadline: ${savedDeadline}`
+      deadlineElement.innerText = `Deadline: ${selectedNote.deadline}`;
   }
+
+  saveNotes(currentNotes)
   /**
   * TODO: make the note be locked
   * TODO: so that the user
@@ -74,13 +94,15 @@ function markNoteCompleted(id) {
   */
 }
 
-function createNoteElement(id, content, deadline) {
+function createNoteElement(id, content, deadline, color, completed=false) {
     const div = document.createElement("div");
     const element = document.createElement("textarea");
     const deadlineElement = document.createElement("span");
     const completeDateElement = document.createElement("span") //! this will only be displayed once a note is completed.
 
+
     div.appendChild(element)
+    div.style.backgroundColor = color
     div.appendChild(deadlineElement)
     div.appendChild(completeDateElement)
     deadlineElement.innerText = deadline || "No deadline has been set." 
@@ -88,6 +110,7 @@ function createNoteElement(id, content, deadline) {
     div.id = id;
 
     div.classList.add("note")
+    // div.classList.add("color")
     element.classList.add("note-text")
     deadlineElement.classList.add("note-deadline")
     completeDateElement.classList.add("note-completed-date")
@@ -95,6 +118,14 @@ function createNoteElement(id, content, deadline) {
     element.placeholder = "Empty note"
 
     let blurTimeout;
+
+    if (completed === true) { // Show it as completed if its found as true 
+      //! Should later be changed to just moving it away to its seperate tab.
+      div.classList.add("completed")
+      element.classList.add("completed")
+    }
+
+    div.style["background-color"] = color //? Should maybe change to the saved color?
 
     element.addEventListener("focus", () => {
       currentSelectedNote = id
@@ -120,6 +151,7 @@ function createNoteElement(id, content, deadline) {
       clearTimeout(blurTimeout);
     })
 
+
     //check if deadline has been exceeded, and if it is, then add the "exceeded" class which makes the text red.
     if (deadline) {
       const currentDate = new Date()
@@ -138,17 +170,21 @@ function createNoteElement(id, content, deadline) {
 
 
 function addNote() {
-    const currentNotes = getNotes()
-    const noteObject = {
-        id: Math.floor(Math.random() * 10000),
-        content: ""
-    };
 
-    const noteElement = createNoteElement(noteObject.id, noteObject.content)
-    notesContainer.insertBefore(noteElement, addButton)
+  const currentNotes = getNotes()
+  const noteObject = {
+      id: Math.floor(Math.random() * 10000),
+      content: "",
+      completed: false, //* Set default values, to be configured later.
+      color: "#fff" 
+  };
 
-    currentNotes.push(noteObject)
-    saveNotes(currentNotes)
+  const noteElement = createNoteElement(noteObject.id, noteObject.content, noteObject.completed, noteObject.color)
+  console.log(`COLAAAAA: ${noteObject.color}`)
+  notesContainer.insertBefore(noteElement, addButton)
+
+  currentNotes.push(noteObject)
+  saveNotes(currentNotes)
 }
 
 function updateNote(id, newContent) {

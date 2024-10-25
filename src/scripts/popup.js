@@ -20,8 +20,15 @@ function introducePopup(type, message) {
     "confirmation-prompt": {
       title: "Confirmation",
       confirmText: "Confirm",
-      onConfirm: cancelPrompt //* Currently not coded in anything that needs to be confirmed.
+      onConfirm: cancelPrompt
+      //* Currently not coded in anything that needs to be confirmed.
       //? Maybe for a future account system to make the user confirm changing their user info? or maybe even just confirming they are still at their computer.
+    },
+
+    "color-prompt": {
+      title: "Change note color",
+      confirmText: "Confirm changes",
+      onConfirm: colorNoteForward
     },
 
     "deadline-prompt": {
@@ -36,7 +43,7 @@ function introducePopup(type, message) {
       onConfirm: completeNote
     },
 
-    //!PURELY FOR DEBUG
+    //! Failsafe if something goes wrong.
     "error": {
       title: "Error in code",
       confirmText: "OK",
@@ -65,6 +72,12 @@ function introducePopup(type, message) {
     popupTextArea.style.display = "none"
   }
 
+  if (type === 'color-prompt') {
+    popupColorPicker.style.display = "inline-block"
+  } else {
+    popupColorPicker.style.display = "none"
+  }
+
   if (type !== "error") {
     popupBtnCancel.style.display = "inline-block"
   } else {
@@ -78,6 +91,25 @@ function introducePopup(type, message) {
 
   //Show popup
   popupContainer.classList.add("visible")
+}
+/**
+ *!    Temporary note color function
+ *!    Either delete or rewrite when finished.
+*/
+
+function colorNoteForward() {
+  // Error finding and making sure note exists.
+  console.log("AAAAAAAAAAAAa")
+  const selectedNote = getNotes().find(note => note.id === selectedNoteForConfig)
+  if (!selectedNote) {
+    console.error("No note selected or note not found.")
+    return;
+  }
+
+  console.log(`bahhh: ${selectedNote.id}`)
+  colorTheNoteBecauseThisFunctionNameMightBeTooToughForLittleBabyJSToHandle(selectedNote.id)
+  cancelPrompt()
+
 }
 
 function deleteNoteConfirm() {

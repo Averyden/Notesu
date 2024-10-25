@@ -14,6 +14,7 @@ const sidebar = document.querySelector(".sidebar")
 const deleteButton = document.getElementById("deletenotebutton")
 const deadlineButton =  document.getElementById("configuredeadlinebutton")
 const completeButton = document.getElementById("marknoteascompleted")
+const colorButton = document.getElementById("changenotecolor")
 
 
 const popupContainer = document.getElementById("popupContainer")
@@ -22,6 +23,7 @@ const popupContainer = document.getElementById("popupContainer")
 const popupBtnCancel = document.getElementById("btn-cancel")
 const popupBtnConfirm = document.getElementById("btn-confirm")
 const popupTextArea = document.getElementById("popupTextArea")
+const popupColorPicker = document.getElementById("popupColorSlct")
 popupTextArea.min = new Date().toLocaleDateString('en-us')
 
 //const delNoteSound = "../"
@@ -45,7 +47,7 @@ setTimeout(() => {
 
 //this instantly calls the getNotes function, so that the notes are loaded upon startup.
 getNotes().forEach(note => {
-    const noteElement = createNoteElement(note.id, note.content, note.deadline)
+    const noteElement = createNoteElement(note.id, note.content, note.deadline, note.color)
     notesContainer.insertBefore(noteElement, addButton)
 });
 
@@ -57,6 +59,7 @@ popupBtnCancel.addEventListener("click", () => cancelPrompt())
 //popupContainer.addEventListener("click", () => cancelPrompt());
 deadlineButton.addEventListener("click", () => introducePopup("deadline-prompt", "Type deadline for note"));
 completeButton.addEventListener("click", () => promptComplete(currentSelectedNote))
+colorButton.addEventListener("click", () => colorNote(currentSelectedNote))
 
 
 //* We only use this function to fetch the details of the note so that it can be displayed on the popup.
@@ -64,6 +67,12 @@ function promptComplete() {
   const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
   const promptMessage = `Are you sure you want to mark note: <b>${selectedNote.id}; ${selectedNote.content}</b> as completed?`
   introducePopup("completion-prompt", promptMessage)
+}
+
+function colorNote() {
+  const selectedNote = getNotes().find((note) => note.id === currentSelectedNote)
+  const promptMessage = `Pick a color for note: <b>${selectedNote.id}; ${selectedNote.content}</b>`
+  introducePopup("color-prompt", promptMessage)
 }
 
 function promptDelete() {
