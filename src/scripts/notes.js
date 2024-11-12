@@ -21,6 +21,7 @@ function configureNoteDeadline(id) {
     deadlineElement.innerText = deadlineValue;
   
     // selectedNote.content = newContent
+    saveNotes(currentNotes)
 }
 
 /*
@@ -175,6 +176,7 @@ function addNote() {
   const noteObject = {
       id: Math.floor(Math.random() * 10000),
       content: "",
+
       completed: false, //* Set default values, to be configured later.
       color: "#fff" 
   };
